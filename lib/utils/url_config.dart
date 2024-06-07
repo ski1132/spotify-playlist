@@ -4,4 +4,5 @@ class UrlConfig {
   static const acountTokenUrl = 'https://accounts.spotify.com/api/token';
   static const featuredPlaylistsUrl =
       'https://api.spotify.com/v1/browse/featured-playlists?locale=TH';
+  static const searchAlbumUrl = 'https://api.spotify.com/v1/search';
 }
