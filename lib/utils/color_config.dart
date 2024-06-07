@@ -7,6 +7,7 @@ class ColorConfig {
   static const grey = Colors.grey;
   static const red = Colors.red;
   static const green = Colors.green;
+  static final orange = Colors.orange.shade900;
   static const linearBlack = [Colors.black87, Colors.black45];
   static const themeAppColor = black;
 }

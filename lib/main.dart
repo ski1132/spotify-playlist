@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:spotify_playlist/views/featured_playlist_page.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:spotify_playlist/views/main_navigator_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const FeaturedPlaylistPage(),
+      home: const MainNavigatorPage(),
       builder: EasyLoading.init(),
       debugShowCheckedModeBanner: false,
     );

@@ -4,6 +4,11 @@ import 'package:spotify_playlist/utils/color_config.dart';
 class TextStyleConfig {
   static const fontSizeNormal = 16.0;
   static const fontSizeSmall = 12.0;
+
+  static const smallWhiteStyle = TextStyle(
+    fontSize: fontSizeSmall,
+    color: ColorConfig.white,
+  );
   static const normalWhiteStyle = TextStyle(
     fontSize: fontSizeNormal,
     color: ColorConfig.white,
