@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 import 'package:spotify_playlist/utils/color_config.dart';
+import 'package:spotify_playlist/utils/page_name_enum.dart';
 
 class MainNavigatorController extends GetxController {
-  RxInt currentPage = 0.obs;
+  Rx<PageName> currentPage = PageName.home.obs;
 
   final bottomNavigatorList = const [
     BottomNavigationBarItem(
