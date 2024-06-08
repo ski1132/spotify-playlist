@@ -5,4 +5,5 @@ class UrlConfig {
   static const featuredPlaylistsUrl =
       'https://api.spotify.com/v1/browse/featured-playlists?locale=TH';
   static const searchAlbumUrl = 'https://api.spotify.com/v1/search';
+  static const albumDetailUrl = 'https://api.spotify.com/v1/albums';
 }

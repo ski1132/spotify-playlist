@@ -11,10 +11,8 @@ class TextStyleConfig {
     fontSize: SizeConfig.fontNormalSize,
     color: ColorConfig.white,
   );
-  static const boldWhiteStyle = TextStyle(
-      fontSize: SizeConfig.fontNormalSize,
-      color: ColorConfig.white,
-      fontWeight: FontWeight.bold);
+  static const largeWhiteStyle =
+      TextStyle(fontSize: SizeConfig.fontLargeSize, color: ColorConfig.white);
   static const smallGrayStyle = TextStyle(
     fontSize: SizeConfig.fontSmallSize,
     color: ColorConfig.grey,

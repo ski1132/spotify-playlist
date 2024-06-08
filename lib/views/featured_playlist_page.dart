@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/instance_manager.dart';
 import 'package:spotify_playlist/controllers/featured_playlist_controller.dart';
@@ -18,52 +17,7 @@ class FeaturedPlaylistPage extends StatelessWidget {
         Get.put(FeaturedPlaylistController());
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.white,
-                  size: 16,
-                ),
-              ),
-              const SizedBox(
-                width: 8,
-              ),
-              const Expanded(
-                child: Text(
-                  'Mixed for you',
-                  style: TextStyleConfig.normalWhiteStyle,
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  final MainNavigatorController mainNavigatorController =
-                      Get.find();
-                  mainNavigatorController.currentPage(PageName.search);
-                },
-                child: const Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-              ),
-              const SizedBox(
-                width: 8,
-              ),
-              CircleAvatar(
-                backgroundColor: ColorConfig.orange,
-                radius: 16,
-                child: const Text(
-                  'S',
-                  style: TextStyleConfig.smallWhiteStyle,
-                ),
-              ),
-            ],
-          ),
-        ),
+        appBar(),
         Expanded(
           child: Obx(
             () => GridView.builder(
@@ -81,6 +35,55 @@ class FeaturedPlaylistPage extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget appBar() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Row(
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+              size: 16,
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          const Expanded(
+            child: Text(
+              'Mixed for you',
+              style: TextStyleConfig.normalWhiteStyle,
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              final MainNavigatorController mainNavigatorController =
+                  Get.find();
+              mainNavigatorController.changePage(PageName.search);
+            },
+            child: const Icon(
+              Icons.search,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          CircleAvatar(
+            backgroundColor: ColorConfig.orange,
+            radius: 16,
+            child: const Text(
+              'S',
+              style: TextStyleConfig.smallWhiteStyle,
+            ),
+          ),
+        ],
+      ),
     );
   }
 

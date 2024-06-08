@@ -6,6 +6,7 @@ import 'package:spotify_playlist/utils/page_name_enum.dart';
 
 class MainNavigatorController extends GetxController {
   Rx<PageName> currentPage = PageName.home.obs;
+  List<dynamic> valueTranfer = [];
 
   final bottomNavigatorList = const [
     BottomNavigationBarItem(
@@ -24,4 +25,10 @@ class MainNavigatorController extends GetxController {
         icon: Icon(Icons.library_music_outlined, color: ColorConfig.grey),
         label: 'Library')
   ];
+
+  changePage(PageName pageName, {List<dynamic>? valueToOtherPage}) {
+    currentPage(pageName);
+    valueTranfer.clear();
+    valueTranfer.addAll(valueToOtherPage ?? []);
+  }
 }

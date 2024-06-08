@@ -4,6 +4,7 @@ import 'package:get/instance_manager.dart';
 import 'package:spotify_playlist/controllers/main_navigator_controller.dart';
 import 'package:spotify_playlist/utils/color_config.dart';
 import 'package:spotify_playlist/utils/page_name_enum.dart';
+import 'package:spotify_playlist/views/album_detail_page.dart';
 import 'package:spotify_playlist/views/album_search_page.dart';
 import 'package:spotify_playlist/views/featured_playlist_page.dart';
 
@@ -20,6 +21,8 @@ class MainNavigatorPage extends StatelessWidget {
       body: Obx(() => switch (mainNavigatorController.currentPage.value) {
             PageName.home => const FeaturedPlaylistPage(),
             PageName.search => const AlbumSearchPage(),
+            PageName.detail => AlbumDetailPage(
+                albumSearchModel: mainNavigatorController.valueTranfer.first),
           }),
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,

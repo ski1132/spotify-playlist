@@ -20,14 +20,20 @@ AlbumSearchModel _$AlbumSearchModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AlbumSearchModel {
+  @JsonKey(name: 'id')
+  String get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'album_type')
   String get albumType => throw _privateConstructorUsedError;
   @JsonKey(name: 'images')
   List<ImageUrlModel> get imagesList => throw _privateConstructorUsedError;
   @JsonKey(name: 'name')
   String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'release_date')
+  String get releaseDate => throw _privateConstructorUsedError;
   @JsonKey(name: 'artists')
   List<ArtistSearchModel> get artists => throw _privateConstructorUsedError;
+  @JsonKey(name: 'tracks')
+  TrackAlbumModel? get tracks => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,10 +48,15 @@ abstract class $AlbumSearchModelCopyWith<$Res> {
       _$AlbumSearchModelCopyWithImpl<$Res, AlbumSearchModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'album_type') String albumType,
+      {@JsonKey(name: 'id') String id,
+      @JsonKey(name: 'album_type') String albumType,
       @JsonKey(name: 'images') List<ImageUrlModel> imagesList,
       @JsonKey(name: 'name') String name,
-      @JsonKey(name: 'artists') List<ArtistSearchModel> artists});
+      @JsonKey(name: 'release_date') String releaseDate,
+      @JsonKey(name: 'artists') List<ArtistSearchModel> artists,
+      @JsonKey(name: 'tracks') TrackAlbumModel? tracks});
+
+  $TrackAlbumModelCopyWith<$Res>? get tracks;
 }
 
 /// @nodoc
@@ -61,12 +72,19 @@ class _$AlbumSearchModelCopyWithImpl<$Res, $Val extends AlbumSearchModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? albumType = null,
     Object? imagesList = null,
     Object? name = null,
+    Object? releaseDate = null,
     Object? artists = null,
+    Object? tracks = freezed,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       albumType: null == albumType
           ? _value.albumType
           : albumType // ignore: cast_nullable_to_non_nullable
@@ -79,11 +97,31 @@ class _$AlbumSearchModelCopyWithImpl<$Res, $Val extends AlbumSearchModel>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      releaseDate: null == releaseDate
+          ? _value.releaseDate
+          : releaseDate // ignore: cast_nullable_to_non_nullable
+              as String,
       artists: null == artists
           ? _value.artists
           : artists // ignore: cast_nullable_to_non_nullable
               as List<ArtistSearchModel>,
+      tracks: freezed == tracks
+          ? _value.tracks
+          : tracks // ignore: cast_nullable_to_non_nullable
+              as TrackAlbumModel?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $TrackAlbumModelCopyWith<$Res>? get tracks {
+    if (_value.tracks == null) {
+      return null;
+    }
+
+    return $TrackAlbumModelCopyWith<$Res>(_value.tracks!, (value) {
+      return _then(_value.copyWith(tracks: value) as $Val);
+    });
   }
 }
 
@@ -96,10 +134,16 @@ abstract class _$$AlbumSearchModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'album_type') String albumType,
+      {@JsonKey(name: 'id') String id,
+      @JsonKey(name: 'album_type') String albumType,
       @JsonKey(name: 'images') List<ImageUrlModel> imagesList,
       @JsonKey(name: 'name') String name,
-      @JsonKey(name: 'artists') List<ArtistSearchModel> artists});
+      @JsonKey(name: 'release_date') String releaseDate,
+      @JsonKey(name: 'artists') List<ArtistSearchModel> artists,
+      @JsonKey(name: 'tracks') TrackAlbumModel? tracks});
+
+  @override
+  $TrackAlbumModelCopyWith<$Res>? get tracks;
 }
 
 /// @nodoc
@@ -113,12 +157,19 @@ class __$$AlbumSearchModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? albumType = null,
     Object? imagesList = null,
     Object? name = null,
+    Object? releaseDate = null,
     Object? artists = null,
+    Object? tracks = freezed,
   }) {
     return _then(_$AlbumSearchModelImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       albumType: null == albumType
           ? _value.albumType
           : albumType // ignore: cast_nullable_to_non_nullable
@@ -131,10 +182,18 @@ class __$$AlbumSearchModelImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      releaseDate: null == releaseDate
+          ? _value.releaseDate
+          : releaseDate // ignore: cast_nullable_to_non_nullable
+              as String,
       artists: null == artists
           ? _value._artists
           : artists // ignore: cast_nullable_to_non_nullable
               as List<ArtistSearchModel>,
+      tracks: freezed == tracks
+          ? _value.tracks
+          : tracks // ignore: cast_nullable_to_non_nullable
+              as TrackAlbumModel?,
     ));
   }
 }
@@ -143,16 +202,22 @@ class __$$AlbumSearchModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AlbumSearchModelImpl implements _AlbumSearchModel {
   const _$AlbumSearchModelImpl(
-      {@JsonKey(name: 'album_type') required this.albumType,
+      {@JsonKey(name: 'id') required this.id,
+      @JsonKey(name: 'album_type') required this.albumType,
       @JsonKey(name: 'images') required final List<ImageUrlModel> imagesList,
       @JsonKey(name: 'name') required this.name,
-      @JsonKey(name: 'artists') required final List<ArtistSearchModel> artists})
+      @JsonKey(name: 'release_date') required this.releaseDate,
+      @JsonKey(name: 'artists') required final List<ArtistSearchModel> artists,
+      @JsonKey(name: 'tracks') required this.tracks})
       : _imagesList = imagesList,
         _artists = artists;
 
   factory _$AlbumSearchModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$AlbumSearchModelImplFromJson(json);
 
+  @override
+  @JsonKey(name: 'id')
+  final String id;
   @override
   @JsonKey(name: 'album_type')
   final String albumType;
@@ -168,6 +233,9 @@ class _$AlbumSearchModelImpl implements _AlbumSearchModel {
   @override
   @JsonKey(name: 'name')
   final String name;
+  @override
+  @JsonKey(name: 'release_date')
+  final String releaseDate;
   final List<ArtistSearchModel> _artists;
   @override
   @JsonKey(name: 'artists')
@@ -178,8 +246,12 @@ class _$AlbumSearchModelImpl implements _AlbumSearchModel {
   }
 
   @override
+  @JsonKey(name: 'tracks')
+  final TrackAlbumModel? tracks;
+
+  @override
   String toString() {
-    return 'AlbumSearchModel(albumType: $albumType, imagesList: $imagesList, name: $name, artists: $artists)';
+    return 'AlbumSearchModel(id: $id, albumType: $albumType, imagesList: $imagesList, name: $name, releaseDate: $releaseDate, artists: $artists, tracks: $tracks)';
   }
 
   @override
@@ -187,22 +259,29 @@ class _$AlbumSearchModelImpl implements _AlbumSearchModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AlbumSearchModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.albumType, albumType) ||
                 other.albumType == albumType) &&
             const DeepCollectionEquality()
                 .equals(other._imagesList, _imagesList) &&
             (identical(other.name, name) || other.name == name) &&
-            const DeepCollectionEquality().equals(other._artists, _artists));
+            (identical(other.releaseDate, releaseDate) ||
+                other.releaseDate == releaseDate) &&
+            const DeepCollectionEquality().equals(other._artists, _artists) &&
+            (identical(other.tracks, tracks) || other.tracks == tracks));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      id,
       albumType,
       const DeepCollectionEquality().hash(_imagesList),
       name,
-      const DeepCollectionEquality().hash(_artists));
+      releaseDate,
+      const DeepCollectionEquality().hash(_artists),
+      tracks);
 
   @JsonKey(ignore: true)
   @override
@@ -221,15 +300,21 @@ class _$AlbumSearchModelImpl implements _AlbumSearchModel {
 
 abstract class _AlbumSearchModel implements AlbumSearchModel {
   const factory _AlbumSearchModel(
-      {@JsonKey(name: 'album_type') required final String albumType,
+      {@JsonKey(name: 'id') required final String id,
+      @JsonKey(name: 'album_type') required final String albumType,
       @JsonKey(name: 'images') required final List<ImageUrlModel> imagesList,
       @JsonKey(name: 'name') required final String name,
-      @JsonKey(name: 'artists')
-      required final List<ArtistSearchModel> artists}) = _$AlbumSearchModelImpl;
+      @JsonKey(name: 'release_date') required final String releaseDate,
+      @JsonKey(name: 'artists') required final List<ArtistSearchModel> artists,
+      @JsonKey(name: 'tracks')
+      required final TrackAlbumModel? tracks}) = _$AlbumSearchModelImpl;
 
   factory _AlbumSearchModel.fromJson(Map<String, dynamic> json) =
       _$AlbumSearchModelImpl.fromJson;
 
+  @override
+  @JsonKey(name: 'id')
+  String get id;
   @override
   @JsonKey(name: 'album_type')
   String get albumType;
@@ -240,8 +325,14 @@ abstract class _AlbumSearchModel implements AlbumSearchModel {
   @JsonKey(name: 'name')
   String get name;
   @override
+  @JsonKey(name: 'release_date')
+  String get releaseDate;
+  @override
   @JsonKey(name: 'artists')
   List<ArtistSearchModel> get artists;
+  @override
+  @JsonKey(name: 'tracks')
+  TrackAlbumModel? get tracks;
   @override
   @JsonKey(ignore: true)
   _$$AlbumSearchModelImplCopyWith<_$AlbumSearchModelImpl> get copyWith =>
