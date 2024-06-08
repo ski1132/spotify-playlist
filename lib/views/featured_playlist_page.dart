@@ -22,10 +22,13 @@ class FeaturedPlaylistPage extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Row(
             children: [
-              const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.white,
-                size: 16,
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                  size: 16,
+                ),
               ),
               const SizedBox(
                 width: 8,

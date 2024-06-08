@@ -30,42 +30,49 @@ class AlbumSearchPage extends StatelessWidget {
                       Get.find();
                   mainNavigatorController.currentPage(PageName.home);
                 },
-                child: const Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.white,
-                  size: 16,
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.white,
+                    size: 16,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: SizedBox(
+                  height: 32,
+                  child: TextFormFieldApp(
+                    controller: albumSearchController.searchFieldController,
+                    suffixIcon: Obx(
+                      () => albumSearchController.enableClearSearch.value
+                          ? IconButton(
+                              onPressed: () {
+                                albumSearchController.searchFieldController
+                                    .clear();
+                                albumSearchController.enableClearSearch(false);
+                              },
+                              icon: const Icon(
+                                Icons.close,
+                                size: SizeConfig.fontNormalSize,
+                                color: ColorConfig.white,
+                              ))
+                          : const SizedBox(),
+                    ),
+                    onChange: (text) => albumSearchController.enableClearSearch(
+                        albumSearchController
+                            .searchFieldController.text.isNotEmpty),
+                    onSubmit: (search) {
+                      if (albumSearchController
+                          .searchFieldController.text.isNotEmpty) {
+                        albumSearchController.fetchSearchAlbum();
+                      }
+                    },
+                  ),
                 ),
               ),
               const SizedBox(
                 width: 8,
-              ),
-              Expanded(
-                child: TextFormFieldApp(
-                  controller: albumSearchController.searchFieldController,
-                  suffixIcon: Obx(
-                    () => albumSearchController.enableClearSearch.value
-                        ? IconButton(
-                            onPressed: () {
-                              albumSearchController.searchFieldController
-                                  .clear();
-                              albumSearchController.enableClearSearch(false);
-                            },
-                            icon: const Icon(
-                              Icons.close,
-                              color: ColorConfig.white,
-                            ))
-                        : const SizedBox(),
-                  ),
-                  onChange: (text) => albumSearchController.enableClearSearch(
-                      albumSearchController
-                          .searchFieldController.text.isNotEmpty),
-                  onSubmit: (search) {
-                    if (albumSearchController
-                        .searchFieldController.text.isNotEmpty) {
-                      albumSearchController.fetchSearchAlbum();
-                    }
-                  },
-                ),
               ),
               GestureDetector(
                 onTap: () {
