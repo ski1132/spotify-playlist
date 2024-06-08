@@ -197,36 +197,47 @@ class AlbumDetailPage extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            index.toString(),
+            (index + 1).toString(),
             style: TextStyleConfig.normalWhiteStyle,
           ),
           const SizedBox(
             width: SizeConfig.fontLargeSize,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                albumDetailModel.name,
-                style: TextStyleConfig.normalWhiteStyle,
-              ),
-              Row(
-                children: [
-                  Text(
-                    albumDetailModel.artists.first.name,
-                    style: TextStyleConfig.normalGrayStyle,
-                  ),
-                  const Text(' • ', style: TextStyleConfig.normalGrayStyle),
-                  Text(
-                    minute.toStringAsFixed(2).replaceAll('.', ':'),
-                    style: TextStyleConfig.normalGrayStyle,
-                  ),
-                  const Text(' • ', style: TextStyleConfig.normalGrayStyle),
-                  const Text(' plays', style: TextStyleConfig.normalGrayStyle),
-                ],
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  albumDetailModel.name,
+                  style: TextStyleConfig.normalWhiteStyle,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      albumDetailModel.artists.first.name,
+                      style: TextStyleConfig.normalGrayStyle,
+                    ),
+                    const Text(' • ', style: TextStyleConfig.normalGrayStyle),
+                    Text(
+                      minute.toStringAsFixed(2).replaceAll('.', ':'),
+                      style: TextStyleConfig.normalGrayStyle,
+                    ),
+                    const Text(' • ', style: TextStyleConfig.normalGrayStyle),
+                    const Text(' plays',
+                        style: TextStyleConfig.normalGrayStyle),
+                  ],
+                ),
+              ],
+            ),
           ),
+          GestureDetector(
+            onTap: () {},
+            child: const Icon(
+              Icons.more_vert,
+              color: ColorConfig.white,
+              size: SizeConfig.fontNormalSize,
+            ),
+          )
         ],
       ),
     );

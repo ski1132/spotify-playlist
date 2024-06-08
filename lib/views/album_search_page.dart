@@ -156,6 +156,14 @@ class AlbumSearchPage extends StatelessWidget {
               ],
             ),
           ),
+          GestureDetector(
+            onTap: () {},
+            child: const Icon(
+              Icons.more_vert,
+              color: ColorConfig.white,
+              size: SizeConfig.fontNormalSize,
+            ),
+          )
         ]),
       ),
     );
