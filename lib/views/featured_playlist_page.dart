@@ -100,13 +100,13 @@ class FeaturedPlaylistPage extends StatelessWidget {
             featuredPlaylistModel.name,
             style: TextStyleConfig.normalWhiteStyle,
             maxLines: 1,
-            overflow: TextOverflow.clip,
+            overflow: TextOverflow.ellipsis,
           ),
           Text(
             featuredPlaylistModel.description,
             style: TextStyleConfig.smallGrayStyle,
             maxLines: 2,
-            overflow: TextOverflow.clip,
+            overflow: TextOverflow.ellipsis,
           )
         ],
       ),

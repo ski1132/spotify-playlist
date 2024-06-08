@@ -1,28 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_playlist/utils/color_config.dart';
+import 'package:spotify_playlist/utils/size_config.dart';
 
 class TextStyleConfig {
-  static const fontSizeNormal = 16.0;
-  static const fontSizeSmall = 12.0;
-
   static const smallWhiteStyle = TextStyle(
-    fontSize: fontSizeSmall,
+    fontSize: SizeConfig.fontSmallSize,
     color: ColorConfig.white,
   );
   static const normalWhiteStyle = TextStyle(
-    fontSize: fontSizeNormal,
+    fontSize: SizeConfig.fontNormalSize,
     color: ColorConfig.white,
   );
   static const boldWhiteStyle = TextStyle(
-      fontSize: fontSizeNormal,
+      fontSize: SizeConfig.fontNormalSize,
       color: ColorConfig.white,
       fontWeight: FontWeight.bold);
   static const smallGrayStyle = TextStyle(
-    fontSize: fontSizeSmall,
+    fontSize: SizeConfig.fontSmallSize,
     color: ColorConfig.grey,
   );
   static const normalGrayStyle = TextStyle(
-    fontSize: fontSizeNormal,
+    fontSize: SizeConfig.fontNormalSize,
     color: ColorConfig.grey,
   );
 }

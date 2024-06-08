@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:spotify_playlist/utils/color_config.dart';
 import 'package:spotify_playlist/utils/text_style_config.dart';
 
@@ -9,7 +8,7 @@ class TextFormFieldApp extends StatelessWidget {
   final Function(String)? onChange;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
-  final Function()? onTap;
+  final Function(String)? onSubmit;
   const TextFormFieldApp({
     super.key,
     required this.controller,
@@ -17,7 +16,7 @@ class TextFormFieldApp extends StatelessWidget {
     this.onChange,
     this.suffixIcon,
     this.prefixIcon,
-    this.onTap,
+    this.onSubmit,
   });
 
   @override
@@ -36,11 +35,11 @@ class TextFormFieldApp extends StatelessWidget {
             style: BorderStyle.none,
           ),
         ),
-        contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+        contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
         fillColor: ColorConfig.darkGrey,
         filled: true,
       ),
-      onTap: onTap,
+      onSubmitted: onSubmit,
     );
   }
 }

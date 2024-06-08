@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:spotify_playlist/models/album_search_model.dart';
@@ -9,8 +10,10 @@ class AlbumSearchController extends GetxController {
   final storage = const FlutterSecureStorage();
   TextEditingController searchFieldController = TextEditingController();
   RxList<AlbumSearchModel> albumSearchList = <AlbumSearchModel>[].obs;
+  RxBool enableClearSearch = false.obs;
 
-  Future<List<AlbumSearchModel>> fetchFeaturedPlaylists() async {
+  Future<List<AlbumSearchModel>> fetchSearchAlbum() async {
+    EasyLoading.show();
     albumSearchList.clear();
     final token = await storage.read(key: 'token');
     final dio = Dio(
@@ -19,7 +22,16 @@ class AlbumSearchController extends GetxController {
         headers: {'Authorization': token},
       ),
     );
-    final response = await dio.get(UrlConfig.searchAlbumUrl);
+    final data = {
+      'q': searchFieldController.text,
+      'type': 'album',
+      'market': 'TH',
+      // 'limit':10,
+      // 'offset':''
+    };
+    final response =
+        await dio.get(UrlConfig.searchAlbumUrl, queryParameters: data);
+    EasyLoading.dismiss();
     if (response.statusCode != null && response.statusCode == 200) {
       final responseList = response.data['albums']['items'] as List;
       albumSearchList.addAll(

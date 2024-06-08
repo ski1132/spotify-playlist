@@ -21,9 +21,9 @@ ImageUrlModel _$ImageUrlModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ImageUrlModel {
   @JsonKey(name: 'height')
-  String? get height => throw _privateConstructorUsedError;
+  int? get height => throw _privateConstructorUsedError;
   @JsonKey(name: 'width')
-  String? get width => throw _privateConstructorUsedError;
+  int? get width => throw _privateConstructorUsedError;
   @JsonKey(name: 'url')
   String get url => throw _privateConstructorUsedError;
 
@@ -40,8 +40,8 @@ abstract class $ImageUrlModelCopyWith<$Res> {
       _$ImageUrlModelCopyWithImpl<$Res, ImageUrlModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'height') String? height,
-      @JsonKey(name: 'width') String? width,
+      {@JsonKey(name: 'height') int? height,
+      @JsonKey(name: 'width') int? width,
       @JsonKey(name: 'url') String url});
 }
 
@@ -66,11 +66,11 @@ class _$ImageUrlModelCopyWithImpl<$Res, $Val extends ImageUrlModel>
       height: freezed == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       width: freezed == width
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       url: null == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
@@ -88,8 +88,8 @@ abstract class _$$ImageUrlModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'height') String? height,
-      @JsonKey(name: 'width') String? width,
+      {@JsonKey(name: 'height') int? height,
+      @JsonKey(name: 'width') int? width,
       @JsonKey(name: 'url') String url});
 }
 
@@ -112,11 +112,11 @@ class __$$ImageUrlModelImplCopyWithImpl<$Res>
       height: freezed == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       width: freezed == width
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       url: null == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
@@ -138,10 +138,10 @@ class _$ImageUrlModelImpl implements _ImageUrlModel {
 
   @override
   @JsonKey(name: 'height')
-  final String? height;
+  final int? height;
   @override
   @JsonKey(name: 'width')
-  final String? width;
+  final int? width;
   @override
   @JsonKey(name: 'url')
   final String url;
@@ -181,8 +181,8 @@ class _$ImageUrlModelImpl implements _ImageUrlModel {
 
 abstract class _ImageUrlModel implements ImageUrlModel {
   const factory _ImageUrlModel(
-      {@JsonKey(name: 'height') required final String? height,
-      @JsonKey(name: 'width') required final String? width,
+      {@JsonKey(name: 'height') required final int? height,
+      @JsonKey(name: 'width') required final int? width,
       @JsonKey(name: 'url') required final String url}) = _$ImageUrlModelImpl;
 
   factory _ImageUrlModel.fromJson(Map<String, dynamic> json) =
@@ -190,10 +190,10 @@ abstract class _ImageUrlModel implements ImageUrlModel {
 
   @override
   @JsonKey(name: 'height')
-  String? get height;
+  int? get height;
   @override
   @JsonKey(name: 'width')
-  String? get width;
+  int? get width;
   @override
   @JsonKey(name: 'url')
   String get url;

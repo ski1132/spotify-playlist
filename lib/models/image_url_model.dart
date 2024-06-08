@@ -10,8 +10,8 @@ part 'image_url_model.g.dart';
 @freezed
 class ImageUrlModel with _$ImageUrlModel {
   const factory ImageUrlModel({
-    @JsonKey(name: 'height') required String? height,
-    @JsonKey(name: 'width') required String? width,
+    @JsonKey(name: 'height') required int? height,
+    @JsonKey(name: 'width') required int? width,
     @JsonKey(name: 'url') required String url,
   }) = _ImageUrlModel;
 

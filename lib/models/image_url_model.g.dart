@@ -8,8 +8,8 @@ part of 'image_url_model.dart';
 
 _$ImageUrlModelImpl _$$ImageUrlModelImplFromJson(Map<String, dynamic> json) =>
     _$ImageUrlModelImpl(
-      height: json['height'] as String?,
-      width: json['width'] as String?,
+      height: (json['height'] as num?)?.toInt(),
+      width: (json['width'] as num?)?.toInt(),
       url: json['url'] as String,
     );
 

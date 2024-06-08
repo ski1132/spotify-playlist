@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/instance_manager.dart';
 import 'package:spotify_playlist/controllers/album_search_controller.dart';
@@ -7,6 +7,7 @@ import 'package:spotify_playlist/controllers/main_navigator_controller.dart';
 import 'package:spotify_playlist/models/album_search_model.dart';
 import 'package:spotify_playlist/utils/color_config.dart';
 import 'package:spotify_playlist/utils/page_name_enum.dart';
+import 'package:spotify_playlist/utils/size_config.dart';
 import 'package:spotify_playlist/utils/text_style_config.dart';
 import 'package:spotify_playlist/widgets/text_form_field_app.dart';
 
@@ -41,12 +42,29 @@ class AlbumSearchPage extends StatelessWidget {
               Expanded(
                 child: TextFormFieldApp(
                   controller: albumSearchController.searchFieldController,
-                  suffixIcon: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.close,
-                        color: ColorConfig.white,
-                      )),
+                  suffixIcon: Obx(
+                    () => albumSearchController.enableClearSearch.value
+                        ? IconButton(
+                            onPressed: () {
+                              albumSearchController.searchFieldController
+                                  .clear();
+                              albumSearchController.enableClearSearch(false);
+                            },
+                            icon: const Icon(
+                              Icons.close,
+                              color: ColorConfig.white,
+                            ))
+                        : const SizedBox(),
+                  ),
+                  onChange: (text) => albumSearchController.enableClearSearch(
+                      albumSearchController
+                          .searchFieldController.text.isNotEmpty),
+                  onSubmit: (search) {
+                    if (albumSearchController
+                        .searchFieldController.text.isNotEmpty) {
+                      albumSearchController.fetchSearchAlbum();
+                    }
+                  },
                 ),
               ),
               GestureDetector(
@@ -73,8 +91,57 @@ class AlbumSearchPage extends StatelessWidget {
   }
 
   Widget itemAlbum(AlbumSearchModel albumSearchModel) {
-    return Container(
-      child: Row(),
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        child: Row(children: [
+          Image.network(
+            albumSearchModel.imagesList.first.url,
+            width: SizeConfig.imageSmallSize,
+            height: SizeConfig.imageSmallSize,
+          ),
+          const SizedBox(
+            width: 16,
+          ),
+          Expanded(
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        albumSearchModel.name,
+                        style: TextStyleConfig.normalWhiteStyle,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      albumSearchModel.albumType.capitalizeFirst ??
+                          albumSearchModel.albumType,
+                      style: TextStyleConfig.normalGrayStyle,
+                    ),
+                    const Text(' • ', style: TextStyleConfig.normalGrayStyle),
+                    Text(
+                      albumSearchModel.artists.first.name,
+                      style: TextStyleConfig.normalGrayStyle,
+                      maxLines: 1,
+                      overflow: TextOverflow.clip,
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ]),
+      ),
     );
   }
 }
