@@ -41,7 +41,7 @@ class UserPlaylistPage extends StatelessWidget {
             onTap: () {
               final MainNavigatorController mainNavigatorController =
                   Get.find();
-              mainNavigatorController.changePage(PageName.home);
+              mainNavigatorController.changePage(PageName.featured);
             },
             child: const Padding(
               padding: EdgeInsets.all(8.0),

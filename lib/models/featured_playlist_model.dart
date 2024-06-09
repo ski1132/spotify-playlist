@@ -14,6 +14,7 @@ class FeaturedPlaylistModel with _$FeaturedPlaylistModel {
     @JsonKey(name: 'id') required String id,
     @JsonKey(name: 'name') required String name,
     @JsonKey(name: 'description') required String description,
+    @JsonKey(name: 'type') required String type,
     @JsonKey(name: 'images') required List<ImageUrlModel> imagesList,
   }) = _FeaturedPlaylistModel;
 

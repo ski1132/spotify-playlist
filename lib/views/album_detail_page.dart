@@ -13,9 +13,11 @@ import 'package:spotify_playlist/utils/text_style_config.dart';
 
 class AlbumDetailPage extends StatelessWidget {
   final AlbumSearchModel albumSearchModel;
+  final PageName previousePage;
   const AlbumDetailPage({
     super.key,
     required this.albumSearchModel,
+    required this.previousePage,
   });
 
   @override
@@ -44,7 +46,8 @@ class AlbumDetailPage extends StatelessWidget {
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: albumDetailController
-                            .albumList.value!.tracks!.items.length,
+                                .albumList.value?.tracks?.items.length ??
+                            0,
                         itemBuilder: (context, index) => itemSong(
                             index,
                             albumDetailController
@@ -67,7 +70,7 @@ class AlbumDetailPage extends StatelessWidget {
             onTap: () {
               final MainNavigatorController mainNavigatorController =
                   Get.find();
-              mainNavigatorController.changePage(PageName.search);
+              mainNavigatorController.changePage(previousePage);
             },
             child: const Padding(
               padding: EdgeInsets.all(8.0),
@@ -84,38 +87,43 @@ class AlbumDetailPage extends StatelessWidget {
           Expanded(
               child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.network(
-                    albumSearchModel.imagesList.first.url,
-                    width: SizeConfig.imageTinySize,
-                    height: SizeConfig.imageTinySize,
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    albumSearchModel.artists.first.name,
-                    style: TextStyleConfig.smallGrayStyle,
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    albumSearchModel.albumType.capitalizeFirst ??
-                        albumSearchModel.albumType,
-                    style: TextStyleConfig.smallGrayStyle,
-                  ),
-                  const Text(' • ', style: TextStyleConfig.normalGrayStyle),
-                  Text(
-                    albumSearchModel.releaseDate.substring(0, 4),
-                    style: TextStyleConfig.smallGrayStyle,
-                  )
-                ],
-              ),
+              albumSearchModel.artists.isEmpty
+                  ? const SizedBox()
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.network(
+                          albumSearchModel.imagesList.first.url,
+                          width: SizeConfig.imageTinySize,
+                          height: SizeConfig.imageTinySize,
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          albumSearchModel.artists.first.name,
+                          style: TextStyleConfig.smallGrayStyle,
+                        )
+                      ],
+                    ),
+              albumSearchModel.releaseDate.length < 5
+                  ? const SizedBox()
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          albumSearchModel.albumType.capitalizeFirst ??
+                              albumSearchModel.albumType,
+                          style: TextStyleConfig.smallGrayStyle,
+                        ),
+                        const Text(' • ',
+                            style: TextStyleConfig.normalGrayStyle),
+                        Text(
+                          albumSearchModel.releaseDate.substring(0, 4),
+                          style: TextStyleConfig.smallGrayStyle,
+                        )
+                      ],
+                    ),
             ],
           )),
           const SizedBox(

@@ -22,10 +22,13 @@ class MainNavigatorPage extends StatelessWidget {
         child: Scaffold(
       backgroundColor: ColorConfig.darkThemeAppColor,
       body: Obx(() => switch (mainNavigatorController.currentPage.value) {
-            PageName.home => const FeaturedPlaylistPage(),
+            PageName.featured => const FeaturedPlaylistPage(),
             PageName.search => const AlbumSearchPage(),
             PageName.detail => AlbumDetailPage(
-                albumSearchModel: mainNavigatorController.valueTranfer.first),
+                albumSearchModel: mainNavigatorController.valueTranfer.first,
+                previousePage:
+                    mainNavigatorController.valueTranfer.elementAt(1),
+              ),
             PageName.userPlaylist => const UserPlaylistPage(),
           }),
       bottomNavigationBar: Theme(
@@ -33,12 +36,25 @@ class MainNavigatorPage extends StatelessWidget {
           splashColor: ColorConfig.transparent,
           highlightColor: ColorConfig.transparent,
         ),
-        child: BottomNavigationBar(
+        child: Obx(
+          () => BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             backgroundColor: ColorConfig.darkGreyThemeAppColor,
             unselectedItemColor: ColorConfig.grey,
             selectedItemColor: ColorConfig.white,
-            items: mainNavigatorController.bottomNavigatorList),
+            items: mainNavigatorController.bottomNavigatorList,
+            currentIndex: mainNavigatorController.indexBottomNavigator.value,
+            onTap: (value) {
+              if (value == 3) {
+                mainNavigatorController.changePage(PageName.userPlaylist);
+                mainNavigatorController.indexBottomNavigator(3);
+              } else {
+                mainNavigatorController.changePage(PageName.featured);
+                mainNavigatorController.indexBottomNavigator(0);
+              }
+            },
+          ),
+        ),
       ),
     ));
   }

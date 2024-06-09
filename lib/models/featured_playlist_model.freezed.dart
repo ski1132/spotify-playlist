@@ -27,6 +27,8 @@ mixin _$FeaturedPlaylistModel {
   String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'description')
   String get description => throw _privateConstructorUsedError;
+  @JsonKey(name: 'type')
+  String get type => throw _privateConstructorUsedError;
   @JsonKey(name: 'images')
   List<ImageUrlModel> get imagesList => throw _privateConstructorUsedError;
 
@@ -46,6 +48,7 @@ abstract class $FeaturedPlaylistModelCopyWith<$Res> {
       {@JsonKey(name: 'id') String id,
       @JsonKey(name: 'name') String name,
       @JsonKey(name: 'description') String description,
+      @JsonKey(name: 'type') String type,
       @JsonKey(name: 'images') List<ImageUrlModel> imagesList});
 }
 
@@ -66,6 +69,7 @@ class _$FeaturedPlaylistModelCopyWithImpl<$Res,
     Object? id = null,
     Object? name = null,
     Object? description = null,
+    Object? type = null,
     Object? imagesList = null,
   }) {
     return _then(_value.copyWith(
@@ -80,6 +84,10 @@ class _$FeaturedPlaylistModelCopyWithImpl<$Res,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String,
       imagesList: null == imagesList
           ? _value.imagesList
@@ -102,6 +110,7 @@ abstract class _$$FeaturedPlaylistModelImplCopyWith<$Res>
       {@JsonKey(name: 'id') String id,
       @JsonKey(name: 'name') String name,
       @JsonKey(name: 'description') String description,
+      @JsonKey(name: 'type') String type,
       @JsonKey(name: 'images') List<ImageUrlModel> imagesList});
 }
 
@@ -120,6 +129,7 @@ class __$$FeaturedPlaylistModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? description = null,
+    Object? type = null,
     Object? imagesList = null,
   }) {
     return _then(_$FeaturedPlaylistModelImpl(
@@ -134,6 +144,10 @@ class __$$FeaturedPlaylistModelImplCopyWithImpl<$Res>
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String,
       imagesList: null == imagesList
           ? _value._imagesList
@@ -150,6 +164,7 @@ class _$FeaturedPlaylistModelImpl implements _FeaturedPlaylistModel {
       {@JsonKey(name: 'id') required this.id,
       @JsonKey(name: 'name') required this.name,
       @JsonKey(name: 'description') required this.description,
+      @JsonKey(name: 'type') required this.type,
       @JsonKey(name: 'images') required final List<ImageUrlModel> imagesList})
       : _imagesList = imagesList;
 
@@ -165,6 +180,9 @@ class _$FeaturedPlaylistModelImpl implements _FeaturedPlaylistModel {
   @override
   @JsonKey(name: 'description')
   final String description;
+  @override
+  @JsonKey(name: 'type')
+  final String type;
   final List<ImageUrlModel> _imagesList;
   @override
   @JsonKey(name: 'images')
@@ -176,7 +194,7 @@ class _$FeaturedPlaylistModelImpl implements _FeaturedPlaylistModel {
 
   @override
   String toString() {
-    return 'FeaturedPlaylistModel(id: $id, name: $name, description: $description, imagesList: $imagesList)';
+    return 'FeaturedPlaylistModel(id: $id, name: $name, description: $description, type: $type, imagesList: $imagesList)';
   }
 
   @override
@@ -188,13 +206,14 @@ class _$FeaturedPlaylistModelImpl implements _FeaturedPlaylistModel {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.type, type) || other.type == type) &&
             const DeepCollectionEquality()
                 .equals(other._imagesList, _imagesList));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, description,
+  int get hashCode => Object.hash(runtimeType, id, name, description, type,
       const DeepCollectionEquality().hash(_imagesList));
 
   @JsonKey(ignore: true)
@@ -217,6 +236,7 @@ abstract class _FeaturedPlaylistModel implements FeaturedPlaylistModel {
           {@JsonKey(name: 'id') required final String id,
           @JsonKey(name: 'name') required final String name,
           @JsonKey(name: 'description') required final String description,
+          @JsonKey(name: 'type') required final String type,
           @JsonKey(name: 'images')
           required final List<ImageUrlModel> imagesList}) =
       _$FeaturedPlaylistModelImpl;
@@ -233,6 +253,9 @@ abstract class _FeaturedPlaylistModel implements FeaturedPlaylistModel {
   @override
   @JsonKey(name: 'description')
   String get description;
+  @override
+  @JsonKey(name: 'type')
+  String get type;
   @override
   @JsonKey(name: 'images')
   List<ImageUrlModel> get imagesList;

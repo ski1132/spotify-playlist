@@ -3,6 +3,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/instance_manager.dart';
 import 'package:spotify_playlist/controllers/featured_playlist_controller.dart';
 import 'package:spotify_playlist/controllers/main_navigator_controller.dart';
+import 'package:spotify_playlist/models/album_search_model.dart';
 import 'package:spotify_playlist/models/featured_playlist_model.dart';
 import 'package:spotify_playlist/utils/color_config.dart';
 import 'package:spotify_playlist/utils/page_name_enum.dart';
@@ -99,7 +100,20 @@ class FeaturedPlaylistPage extends StatelessWidget {
   Widget itemFeaturedPlaylistController(
       FeaturedPlaylistModel featuredPlaylistModel) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        final MainNavigatorController mainNavigatorController = Get.find();
+        final AlbumSearchModel albumDetailModel = AlbumSearchModel(
+          artists: [],
+          id: featuredPlaylistModel.id,
+          name: featuredPlaylistModel.name,
+          albumType: featuredPlaylistModel.type,
+          imagesList: featuredPlaylistModel.imagesList,
+          releaseDate: '',
+          tracks: null,
+        ); // แปลงค่าเป็น model ของหน้า Album Detail
+        mainNavigatorController.changePage(PageName.detail,
+            valueToOtherPage: [albumDetailModel, PageName.featured]);
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

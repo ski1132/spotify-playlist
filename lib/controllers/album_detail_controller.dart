@@ -12,6 +12,7 @@ class AlbumDetailController extends GetxController {
 
   Future fetchAlbumDetail(AlbumSearchModel albumSearchModel) async {
     isLoading(true);
+    albumList = null.obs;
     final token = await storage.read(key: KeyConfig.token);
     final data = {
       'ids': albumSearchModel.id,
@@ -22,11 +23,12 @@ class AlbumDetailController extends GetxController {
     isLoading(false);
     if (response.statusCode != null && response.statusCode == 200) {
       final List responseList = response.data['albums'];
-
-      albumList = AlbumSearchModel.fromJson(responseList.first).obs;
-      return albumList;
-    } else {
-      return [];
+      if (responseList.isNotEmpty && responseList.first != null) {
+        albumList = AlbumSearchModel.fromJson(responseList.first).obs;
+      } else {
+        albumList = null.obs;
+      }
+      albumList.refresh();
     }
   }
 }
