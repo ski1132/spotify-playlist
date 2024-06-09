@@ -74,12 +74,19 @@ class FeaturedPlaylistPage extends StatelessWidget {
           const SizedBox(
             width: 8,
           ),
-          CircleAvatar(
-            backgroundColor: ColorConfig.orange,
-            radius: 16,
-            child: const Text(
-              'S',
-              style: TextStyleConfig.smallWhiteStyle,
+          GestureDetector(
+            onTap: () {
+              final MainNavigatorController mainNavigatorController =
+                  Get.find();
+              mainNavigatorController.changePage(PageName.userPlaylist);
+            },
+            child: CircleAvatar(
+              backgroundColor: ColorConfig.orange,
+              radius: 16,
+              child: const Text(
+                'S',
+                style: TextStyleConfig.smallWhiteStyle,
+              ),
             ),
           ),
         ],

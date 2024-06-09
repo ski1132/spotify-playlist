@@ -1,1 +1,1 @@
-enum PageName { home, search, detail }
+enum PageName { home, search, detail, userPlaylist }

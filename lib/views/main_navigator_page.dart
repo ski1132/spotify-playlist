@@ -7,9 +7,12 @@ import 'package:spotify_playlist/utils/page_name_enum.dart';
 import 'package:spotify_playlist/views/album_detail_page.dart';
 import 'package:spotify_playlist/views/album_search_page.dart';
 import 'package:spotify_playlist/views/featured_playlist_page.dart';
+import 'package:spotify_playlist/views/user_playlist_page.dart';
 
 class MainNavigatorPage extends StatelessWidget {
-  const MainNavigatorPage({super.key});
+  const MainNavigatorPage({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +26,7 @@ class MainNavigatorPage extends StatelessWidget {
             PageName.search => const AlbumSearchPage(),
             PageName.detail => AlbumDetailPage(
                 albumSearchModel: mainNavigatorController.valueTranfer.first),
+            PageName.userPlaylist => const UserPlaylistPage(),
           }),
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
