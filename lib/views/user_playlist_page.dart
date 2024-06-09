@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/instance_manager.dart';
 import 'package:spotify_playlist/controllers/main_navigator_controller.dart';
@@ -31,7 +32,7 @@ class UserPlaylistPage extends StatelessWidget {
 
   Widget appBar(UserPlaylistController userPlaylistController) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(SizeConfig.fontNormalSize),
       child: Row(
         children: [
           GestureDetector(
@@ -45,14 +46,30 @@ class UserPlaylistPage extends StatelessWidget {
               child: Icon(
                 Icons.arrow_back_ios,
                 color: Colors.white,
-                size: 16,
+                size: SizeConfig.fontLargeSize,
               ),
             ),
           ),
           const Expanded(
-            child: SizedBox(
-              height: 32,
-              child: Text('Your playlist'),
+            child: Text(
+              'Your playlist',
+              style: TextStyleConfig.largeWhiteStyle,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          GestureDetector(
+            onTap: () {
+              final MainNavigatorController mainNavigatorController =
+                  Get.find();
+              mainNavigatorController.changePage(PageName.search);
+            },
+            child: const Icon(
+              Icons.search,
+              color: Colors.white,
+              size: SizeConfig.fontLargeSize,
             ),
           ),
           const SizedBox(
@@ -61,7 +78,8 @@ class UserPlaylistPage extends StatelessWidget {
           GestureDetector(
             onTap: () {},
             child: const Icon(
-              Icons.add_circle_outline,
+              Icons.add,
+              size: SizeConfig.fontJumboSize,
               color: Colors.white,
             ),
           ),
@@ -78,15 +96,26 @@ class UserPlaylistPage extends StatelessWidget {
         //     .changePage(PageName.detail, valueToOtherPage: [albumSearchModel]);
       },
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(SizeConfig.fontNormalSize),
         child: Row(children: [
-          Image.network(
-            playlistUserModel.images.first.url,
-            width: SizeConfig.imageSmallSize,
-            height: SizeConfig.imageSmallSize,
-          ),
+          playlistUserModel.images == null
+              ? Container(
+                  width: SizeConfig.imageSmallSize,
+                  height: SizeConfig.imageSmallSize,
+                  color: ColorConfig.darkGrey,
+                  child: const Icon(
+                    Icons.music_note,
+                    color: ColorConfig.white,
+                    size: SizeConfig.fontLargeSize,
+                  ),
+                )
+              : Image.network(
+                  playlistUserModel.images!.first.url,
+                  width: SizeConfig.imageSmallSize,
+                  height: SizeConfig.imageSmallSize,
+                ),
           const SizedBox(
-            width: 16,
+            width: SizeConfig.fontNormalSize,
           ),
           Expanded(
             child: Column(
@@ -105,9 +134,17 @@ class UserPlaylistPage extends StatelessWidget {
                 ),
                 Row(
                   children: [
+                    Text(
+                      playlistUserModel.type.capitalizeFirst ??
+                          playlistUserModel.type,
+                      style: TextStyleConfig.normalWhiteStyle,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const Text(' • ', style: TextStyleConfig.normalGrayStyle),
                     Expanded(
                       child: Text(
-                        playlistUserModel.description,
+                        '${playlistUserModel.tracks.total} Song',
                         style: TextStyleConfig.normalWhiteStyle,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

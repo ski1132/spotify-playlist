@@ -32,7 +32,7 @@ class AlbumSearchPage extends StatelessWidget {
 
   Widget appBar(AlbumSearchController albumSearchController) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(SizeConfig.fontNormalSize),
       child: Row(
         children: [
           GestureDetector(
@@ -46,7 +46,7 @@ class AlbumSearchPage extends StatelessWidget {
               child: Icon(
                 Icons.arrow_back_ios,
                 color: Colors.white,
-                size: 16,
+                size: SizeConfig.fontLargeSize,
               ),
             ),
           ),
@@ -87,6 +87,7 @@ class AlbumSearchPage extends StatelessWidget {
           const Icon(
             Icons.mic,
             color: Colors.white,
+            size: SizeConfig.fontLargeSize,
           ),
         ],
       ),
@@ -101,7 +102,7 @@ class AlbumSearchPage extends StatelessWidget {
             .changePage(PageName.detail, valueToOtherPage: [albumSearchModel]);
       },
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(SizeConfig.fontNormalSize),
         child: Row(children: [
           Image.network(
             albumSearchModel.imagesList.first.url,
@@ -109,7 +110,7 @@ class AlbumSearchPage extends StatelessWidget {
             height: SizeConfig.imageSmallSize,
           ),
           const SizedBox(
-            width: 16,
+            width: SizeConfig.fontNormalSize,
           ),
           Expanded(
             child: Column(

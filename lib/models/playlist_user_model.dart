@@ -15,7 +15,8 @@ class PlaylistUserModel with _$PlaylistUserModel {
     @JsonKey(name: 'id') required String id,
     @JsonKey(name: 'name') required String name,
     @JsonKey(name: 'description') required String description,
-    @JsonKey(name: 'images') required List<ImageUrlModel> images,
+    @JsonKey(name: 'type') required String type,
+    @JsonKey(name: 'images') required List<ImageUrlModel>? images,
     @JsonKey(name: 'tracks') required TrackPlaylistModel tracks,
   }) = _PlaylistUserModel;
 

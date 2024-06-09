@@ -57,7 +57,7 @@ class AlbumDetailPage extends StatelessWidget {
 
   Widget appBar(AlbumDetailController albumDetailController) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(SizeConfig.fontNormalSize),
       child: Row(
         children: [
           GestureDetector(
@@ -71,7 +71,7 @@ class AlbumDetailPage extends StatelessWidget {
               child: Icon(
                 Icons.arrow_back_ios,
                 color: Colors.white,
-                size: 16,
+                size: SizeConfig.fontLargeSize,
               ),
             ),
           ),
@@ -127,6 +127,7 @@ class AlbumDetailPage extends StatelessWidget {
             child: const Icon(
               Icons.search,
               color: Colors.white,
+              size: SizeConfig.fontLargeSize,
             ),
           ),
         ],
@@ -191,7 +192,8 @@ class AlbumDetailPage extends StatelessWidget {
   Widget itemSong(int index, AlbumDetailModel albumDetailModel) {
     final minute = albumDetailModel.durationMs / 1000 / 60;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+      padding: const EdgeInsets.symmetric(
+          vertical: 8.0, horizontal: SizeConfig.fontNormalSize),
       child: Row(
         children: [
           Text(
@@ -220,9 +222,6 @@ class AlbumDetailPage extends StatelessWidget {
                       minute.toStringAsFixed(2).replaceAll('.', ':'),
                       style: TextStyleConfig.normalGrayStyle,
                     ),
-                    const Text(' • ', style: TextStyleConfig.normalGrayStyle),
-                    const Text(' plays',
-                        style: TextStyleConfig.normalGrayStyle),
                   ],
                 ),
               ],

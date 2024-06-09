@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_playlist/utils/color_config.dart';
+import 'package:spotify_playlist/utils/size_config.dart';
 import 'package:spotify_playlist/utils/text_style_config.dart';
 
 class TextFormFieldApp extends StatelessWidget {
@@ -30,12 +31,13 @@ class TextFormFieldApp extends StatelessWidget {
         prefixIcon: prefixIcon,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20.0),
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             width: 0,
             style: BorderStyle.none,
           ),
         ),
-        contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+        contentPadding: const EdgeInsets.symmetric(
+            vertical: 0, horizontal: SizeConfig.fontNormalSize),
         fillColor: ColorConfig.darkGrey,
         filled: true,
       ),

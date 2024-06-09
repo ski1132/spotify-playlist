@@ -26,8 +26,10 @@ mixin _$PlaylistUserModel {
   String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'description')
   String get description => throw _privateConstructorUsedError;
+  @JsonKey(name: 'type')
+  String get type => throw _privateConstructorUsedError;
   @JsonKey(name: 'images')
-  List<ImageUrlModel> get images => throw _privateConstructorUsedError;
+  List<ImageUrlModel>? get images => throw _privateConstructorUsedError;
   @JsonKey(name: 'tracks')
   TrackPlaylistModel get tracks => throw _privateConstructorUsedError;
 
@@ -47,7 +49,8 @@ abstract class $PlaylistUserModelCopyWith<$Res> {
       {@JsonKey(name: 'id') String id,
       @JsonKey(name: 'name') String name,
       @JsonKey(name: 'description') String description,
-      @JsonKey(name: 'images') List<ImageUrlModel> images,
+      @JsonKey(name: 'type') String type,
+      @JsonKey(name: 'images') List<ImageUrlModel>? images,
       @JsonKey(name: 'tracks') TrackPlaylistModel tracks});
 
   $TrackPlaylistModelCopyWith<$Res> get tracks;
@@ -69,7 +72,8 @@ class _$PlaylistUserModelCopyWithImpl<$Res, $Val extends PlaylistUserModel>
     Object? id = null,
     Object? name = null,
     Object? description = null,
-    Object? images = null,
+    Object? type = null,
+    Object? images = freezed,
     Object? tracks = null,
   }) {
     return _then(_value.copyWith(
@@ -85,10 +89,14 @@ class _$PlaylistUserModelCopyWithImpl<$Res, $Val extends PlaylistUserModel>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      images: null == images
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String,
+      images: freezed == images
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<ImageUrlModel>,
+              as List<ImageUrlModel>?,
       tracks: null == tracks
           ? _value.tracks
           : tracks // ignore: cast_nullable_to_non_nullable
@@ -117,7 +125,8 @@ abstract class _$$PlaylistUserModelImplCopyWith<$Res>
       {@JsonKey(name: 'id') String id,
       @JsonKey(name: 'name') String name,
       @JsonKey(name: 'description') String description,
-      @JsonKey(name: 'images') List<ImageUrlModel> images,
+      @JsonKey(name: 'type') String type,
+      @JsonKey(name: 'images') List<ImageUrlModel>? images,
       @JsonKey(name: 'tracks') TrackPlaylistModel tracks});
 
   @override
@@ -138,7 +147,8 @@ class __$$PlaylistUserModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? description = null,
-    Object? images = null,
+    Object? type = null,
+    Object? images = freezed,
     Object? tracks = null,
   }) {
     return _then(_$PlaylistUserModelImpl(
@@ -154,10 +164,14 @@ class __$$PlaylistUserModelImplCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      images: null == images
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String,
+      images: freezed == images
           ? _value._images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<ImageUrlModel>,
+              as List<ImageUrlModel>?,
       tracks: null == tracks
           ? _value.tracks
           : tracks // ignore: cast_nullable_to_non_nullable
@@ -173,7 +187,8 @@ class _$PlaylistUserModelImpl implements _PlaylistUserModel {
       {@JsonKey(name: 'id') required this.id,
       @JsonKey(name: 'name') required this.name,
       @JsonKey(name: 'description') required this.description,
-      @JsonKey(name: 'images') required final List<ImageUrlModel> images,
+      @JsonKey(name: 'type') required this.type,
+      @JsonKey(name: 'images') required final List<ImageUrlModel>? images,
       @JsonKey(name: 'tracks') required this.tracks})
       : _images = images;
 
@@ -189,13 +204,18 @@ class _$PlaylistUserModelImpl implements _PlaylistUserModel {
   @override
   @JsonKey(name: 'description')
   final String description;
-  final List<ImageUrlModel> _images;
+  @override
+  @JsonKey(name: 'type')
+  final String type;
+  final List<ImageUrlModel>? _images;
   @override
   @JsonKey(name: 'images')
-  List<ImageUrlModel> get images {
+  List<ImageUrlModel>? get images {
+    final value = _images;
+    if (value == null) return null;
     if (_images is EqualUnmodifiableListView) return _images;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_images);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -204,7 +224,7 @@ class _$PlaylistUserModelImpl implements _PlaylistUserModel {
 
   @override
   String toString() {
-    return 'PlaylistUserModel(id: $id, name: $name, description: $description, images: $images, tracks: $tracks)';
+    return 'PlaylistUserModel(id: $id, name: $name, description: $description, type: $type, images: $images, tracks: $tracks)';
   }
 
   @override
@@ -216,13 +236,14 @@ class _$PlaylistUserModelImpl implements _PlaylistUserModel {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.type, type) || other.type == type) &&
             const DeepCollectionEquality().equals(other._images, _images) &&
             (identical(other.tracks, tracks) || other.tracks == tracks));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, description,
+  int get hashCode => Object.hash(runtimeType, id, name, description, type,
       const DeepCollectionEquality().hash(_images), tracks);
 
   @JsonKey(ignore: true)
@@ -245,7 +266,8 @@ abstract class _PlaylistUserModel implements PlaylistUserModel {
           {@JsonKey(name: 'id') required final String id,
           @JsonKey(name: 'name') required final String name,
           @JsonKey(name: 'description') required final String description,
-          @JsonKey(name: 'images') required final List<ImageUrlModel> images,
+          @JsonKey(name: 'type') required final String type,
+          @JsonKey(name: 'images') required final List<ImageUrlModel>? images,
           @JsonKey(name: 'tracks') required final TrackPlaylistModel tracks}) =
       _$PlaylistUserModelImpl;
 
@@ -262,8 +284,11 @@ abstract class _PlaylistUserModel implements PlaylistUserModel {
   @JsonKey(name: 'description')
   String get description;
   @override
+  @JsonKey(name: 'type')
+  String get type;
+  @override
   @JsonKey(name: 'images')
-  List<ImageUrlModel> get images;
+  List<ImageUrlModel>? get images;
   @override
   @JsonKey(name: 'tracks')
   TrackPlaylistModel get tracks;

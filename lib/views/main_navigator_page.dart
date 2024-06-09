@@ -28,12 +28,18 @@ class MainNavigatorPage extends StatelessWidget {
                 albumSearchModel: mainNavigatorController.valueTranfer.first),
             PageName.userPlaylist => const UserPlaylistPage(),
           }),
-      bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: ColorConfig.darkGreyThemeAppColor,
-          unselectedItemColor: ColorConfig.grey,
-          selectedItemColor: ColorConfig.white,
-          items: mainNavigatorController.bottomNavigatorList),
+      bottomNavigationBar: Theme(
+        data: ThemeData(
+          splashColor: ColorConfig.transparent,
+          highlightColor: ColorConfig.transparent,
+        ),
+        child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: ColorConfig.darkGreyThemeAppColor,
+            unselectedItemColor: ColorConfig.grey,
+            selectedItemColor: ColorConfig.white,
+            items: mainNavigatorController.bottomNavigatorList),
+      ),
     ));
   }
 }

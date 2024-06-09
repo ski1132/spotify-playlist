@@ -6,6 +6,7 @@ import 'package:spotify_playlist/controllers/main_navigator_controller.dart';
 import 'package:spotify_playlist/models/featured_playlist_model.dart';
 import 'package:spotify_playlist/utils/color_config.dart';
 import 'package:spotify_playlist/utils/page_name_enum.dart';
+import 'package:spotify_playlist/utils/size_config.dart';
 import 'package:spotify_playlist/utils/text_style_config.dart';
 
 class FeaturedPlaylistPage extends StatelessWidget {
@@ -26,8 +27,8 @@ class FeaturedPlaylistPage extends StatelessWidget {
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2, // แสดง 2 คอลัมน์
                     childAspectRatio: 0.7,
-                    mainAxisSpacing: 16,
-                    crossAxisSpacing: 16),
+                    mainAxisSpacing: SizeConfig.fontNormalSize,
+                    crossAxisSpacing: SizeConfig.fontNormalSize),
                 itemCount: featuredPlaylistController.featuredPlaylist.length,
                 itemBuilder: (BuildContext context, int index) =>
                     itemFeaturedPlaylistController(
@@ -40,7 +41,7 @@ class FeaturedPlaylistPage extends StatelessWidget {
 
   Widget appBar() {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(SizeConfig.fontNormalSize),
       child: Row(
         children: [
           const Padding(
@@ -48,7 +49,7 @@ class FeaturedPlaylistPage extends StatelessWidget {
             child: Icon(
               Icons.arrow_back_ios,
               color: Colors.white,
-              size: 16,
+              size: SizeConfig.fontLargeSize,
             ),
           ),
           const SizedBox(
@@ -57,7 +58,7 @@ class FeaturedPlaylistPage extends StatelessWidget {
           const Expanded(
             child: Text(
               'Mixed for you',
-              style: TextStyleConfig.normalWhiteStyle,
+              style: TextStyleConfig.largeWhiteStyle,
             ),
           ),
           GestureDetector(
@@ -69,6 +70,7 @@ class FeaturedPlaylistPage extends StatelessWidget {
             child: const Icon(
               Icons.search,
               color: Colors.white,
+              size: SizeConfig.fontLargeSize,
             ),
           ),
           const SizedBox(
@@ -82,7 +84,7 @@ class FeaturedPlaylistPage extends StatelessWidget {
             },
             child: CircleAvatar(
               backgroundColor: ColorConfig.orange,
-              radius: 16,
+              radius: SizeConfig.fontNormalSize,
               child: const Text(
                 'S',
                 style: TextStyleConfig.smallWhiteStyle,
