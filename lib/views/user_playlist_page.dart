@@ -17,15 +17,19 @@ class UserPlaylistPage extends StatelessWidget {
   Widget build(BuildContext context) {
     UserPlaylistController userPlaylistController =
         Get.put(UserPlaylistController());
+    userPlaylistController.resetValue();
     userPlaylistController.fetchUserPlaylist();
     return Column(
       children: [
         appBar(userPlaylistController),
         Expanded(
             child: Obx(() => ListView.builder(
-                itemCount: userPlaylistController.playList.length,
-                itemBuilder: (context, index) => itemPlaylist(
-                    userPlaylistController.playList.elementAt(index)))))
+                itemCount: userPlaylistController.playList.length + 1,
+                itemBuilder: (context, index) =>
+                    userPlaylistController.playList.length == index
+                        ? loadMore(userPlaylistController)
+                        : itemPlaylist(
+                            userPlaylistController.playList.elementAt(index)))))
       ],
     );
   }
@@ -235,5 +239,22 @@ class UserPlaylistPage extends StatelessWidget {
         ),
       ),
     ));
+  }
+
+  Widget loadMore(UserPlaylistController userPlaylistController) {
+    return userPlaylistController.enableLoadMoreButton.value &&
+            userPlaylistController.playList.isNotEmpty
+        ? GestureDetector(
+            onTap: () => userPlaylistController.fetchUserPlaylist(),
+            child: const Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Icon(
+                Icons.add_circle_outline,
+                size: SizeConfig.imageSmallSize,
+                color: ColorConfig.white,
+              ),
+            ),
+          )
+        : const SizedBox();
   }
 }

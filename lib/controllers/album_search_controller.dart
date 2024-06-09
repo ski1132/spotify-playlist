@@ -12,17 +12,26 @@ class AlbumSearchController extends GetxController {
   TextEditingController searchFieldController = TextEditingController();
   RxList<AlbumSearchModel> albumSearchList = <AlbumSearchModel>[].obs;
   RxBool enableClearSearch = false.obs;
+  int offset = 0;
+  RxBool enableLoadMoreButton = true.obs;
 
-  Future<List<AlbumSearchModel>> fetchSearchAlbum() async {
-    EasyLoading.show();
+  resetValue() {
     albumSearchList.clear();
+    offset = 0;
+    enableLoadMoreButton(true);
+    searchFieldController.clear();
+    enableClearSearch(false);
+  }
+
+  Future fetchSearchAlbum() async {
+    EasyLoading.show();
     final token = await storage.read(key: KeyConfig.token);
     final data = {
       'q': searchFieldController.text,
       'type': 'album',
       'market': 'TH',
-      // 'limit':10,
-      // 'offset':''
+      'limit': 20,
+      'offset': offset
     };
     final response = await GetApi.call(UrlConfig.searchAlbumUrl,
         headers: {'Authorization': token}, param: data);
@@ -31,9 +40,16 @@ class AlbumSearchController extends GetxController {
       final responseList = response.data['albums']['items'] as List;
       albumSearchList.addAll(
           responseList.map((e) => AlbumSearchModel.fromJson(e)).toList());
-      return albumSearchList;
-    } else {
-      return [];
+      final total = response.data['albums']['total'] as int;
+      if (total > offset) {
+        offset += 20;
+        if (total < offset) {
+          enableLoadMoreButton(
+              false); //เช็ค offset กับจำนวนทั้งหมดว่าต้องโหลดเพิ่มไหม
+        }
+      } else {
+        enableLoadMoreButton(false);
+      }
     }
   }
 }

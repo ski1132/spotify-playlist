@@ -23,9 +23,12 @@ class AlbumSearchPage extends StatelessWidget {
         appBar(albumSearchController),
         Expanded(
             child: Obx(() => ListView.builder(
-                itemCount: albumSearchController.albumSearchList.length,
-                itemBuilder: (context, index) =>
-                    itemAlbum(albumSearchController.albumSearchList[index]))))
+                itemCount: albumSearchController.albumSearchList.length + 1,
+                itemBuilder: (context, index) => albumSearchController
+                            .albumSearchList.length ==
+                        index
+                    ? loadMore(albumSearchController)
+                    : itemAlbum(albumSearchController.albumSearchList[index]))))
       ],
     );
   }
@@ -62,8 +65,7 @@ class AlbumSearchPage extends StatelessWidget {
                   () => albumSearchController.enableClearSearch.value
                       ? IconButton(
                           onPressed: () {
-                            albumSearchController.searchFieldController.clear();
-                            albumSearchController.enableClearSearch(false);
+                            albumSearchController.resetValue();
                           },
                           icon: const Icon(
                             Icons.close,
@@ -165,5 +167,22 @@ class AlbumSearchPage extends StatelessWidget {
         ]),
       ),
     );
+  }
+
+  Widget loadMore(AlbumSearchController albumSearchController) {
+    return albumSearchController.enableLoadMoreButton.value &&
+            albumSearchController.albumSearchList.isNotEmpty
+        ? GestureDetector(
+            onTap: () => albumSearchController.fetchSearchAlbum(),
+            child: const Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Icon(
+                Icons.add_circle_outline,
+                size: SizeConfig.imageSmallSize,
+                color: ColorConfig.white,
+              ),
+            ),
+          )
+        : const SizedBox();
   }
 }

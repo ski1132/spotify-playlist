@@ -28,10 +28,13 @@ class TrackSearchPage extends StatelessWidget {
         appBar(trackSearchController),
         Expanded(
             child: Obx(() => ListView.builder(
-                itemCount: trackSearchController.trackSearchList.length,
-                itemBuilder: (context, index) => itemTrack(
-                    trackSearchController.trackSearchList[index],
-                    trackSearchController))))
+                itemCount: trackSearchController.trackSearchList.length + 1,
+                itemBuilder: (context, index) =>
+                    trackSearchController.trackSearchList.length == index
+                        ? loadMore(trackSearchController)
+                        : itemTrack(
+                            trackSearchController.trackSearchList[index],
+                            trackSearchController))))
       ],
     );
   }
@@ -67,8 +70,7 @@ class TrackSearchPage extends StatelessWidget {
                   () => trackSearchController.enableClearSearch.value
                       ? IconButton(
                           onPressed: () {
-                            trackSearchController.searchFieldController.clear();
-                            trackSearchController.enableClearSearch(false);
+                            trackSearchController.resetValue();
                           },
                           icon: const Icon(
                             Icons.close,
@@ -175,5 +177,22 @@ class TrackSearchPage extends StatelessWidget {
         )
       ]),
     );
+  }
+
+  Widget loadMore(TrackSearchController trackSearchController) {
+    return trackSearchController.enableLoadMoreButton.value &&
+            trackSearchController.trackSearchList.isNotEmpty
+        ? GestureDetector(
+            onTap: () => trackSearchController.fetchSearchTrack(),
+            child: const Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Icon(
+                Icons.add_circle_outline,
+                size: SizeConfig.imageSmallSize,
+                color: ColorConfig.white,
+              ),
+            ),
+          )
+        : const SizedBox();
   }
 }
