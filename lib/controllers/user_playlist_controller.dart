@@ -45,8 +45,24 @@ class UserPlaylistController extends GetxController {
     }
   }
 
+  Future<String?> fetchUserProfile() async {
+    final token = await storage.read(key: KeyConfig.token);
+    final response = await GetApi.call(
+      UrlConfig.userProfile,
+      headers: {
+        'Authorization': token,
+      },
+    );
+    if (response.statusCode != null &&
+        (response.statusCode == 200 || response.statusCode == 201)) {
+      return response.data['id'];
+    }
+    return null;
+  }
+
   Future createUserPlaylist(String name, String description) async {
     EasyLoading.show();
+    final userId = await fetchUserProfile();
     final token = await storage.read(key: KeyConfig.token);
     final data = {
       'name': name,
@@ -54,7 +70,7 @@ class UserPlaylistController extends GetxController {
       'public': false,
     };
     final response = await PostApi.call(
-      UrlConfig.createPlaylistUrl,
+      '${UrlConfig.createPlaylistUrl}$userId/playlists',
       data: data,
       headers: {'Authorization': token, 'Content-Type': 'application/json'},
     );
