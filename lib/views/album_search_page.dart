@@ -84,16 +84,9 @@ class AlbumSearchPage extends StatelessWidget {
           const SizedBox(
             width: 8,
           ),
-          GestureDetector(
-            onTap: () {
-              final MainNavigatorController mainNavigatorController =
-                  Get.find();
-              mainNavigatorController.changePage(PageName.search);
-            },
-            child: const Icon(
-              Icons.mic,
-              color: Colors.white,
-            ),
+          const Icon(
+            Icons.mic,
+            color: Colors.white,
           ),
         ],
       ),

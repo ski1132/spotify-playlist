@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/get_utils/src/extensions/export.dart';
 import 'package:get/instance_manager.dart';
@@ -7,7 +6,6 @@ import 'package:spotify_playlist/controllers/album_detail_controller.dart';
 import 'package:spotify_playlist/controllers/main_navigator_controller.dart';
 import 'package:spotify_playlist/models/album_detail_model.dart';
 import 'package:spotify_playlist/models/album_search_model.dart';
-import 'package:spotify_playlist/models/track_album_model.dart';
 import 'package:spotify_playlist/utils/color_config.dart';
 import 'package:spotify_playlist/utils/page_name_enum.dart';
 import 'package:spotify_playlist/utils/size_config.dart';

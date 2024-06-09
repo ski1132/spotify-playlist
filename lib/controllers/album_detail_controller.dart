@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:spotify_playlist/models/album_search_model.dart';
+import 'package:spotify_playlist/utils/key_config.dart';
 import 'package:spotify_playlist/utils/url_config.dart';
 
 class AlbumDetailController extends GetxController {
@@ -11,7 +12,7 @@ class AlbumDetailController extends GetxController {
 
   Future fetchAlbumDetail(AlbumSearchModel albumSearchModel) async {
     isLoading(true);
-    final token = await storage.read(key: 'token');
+    final token = await storage.read(key: KeyConfig.token);
     final dio = Dio(
       BaseOptions(
         connectTimeout: const Duration(seconds: 30), // 60 sec

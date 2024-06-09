@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -5,6 +7,7 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:spotify_playlist/models/account_token_model.dart';
 import 'package:spotify_playlist/models/featured_playlist_model.dart';
+import 'package:spotify_playlist/utils/key_config.dart';
 import 'package:spotify_playlist/utils/url_config.dart';
 
 class FeaturedPlaylistController extends GetxController {
@@ -27,34 +30,40 @@ class FeaturedPlaylistController extends GetxController {
     EasyLoading.dismiss();
   }
 
-  Future<AccountTokenModel?> fetchAccountToken() async {
-    final dio = Dio();
+  Future fetchAccountToken() async {
+    String encodedClient = utf8
+        .fuse(base64)
+        .encode('${UrlConfig.clientId}:${UrlConfig.clientSecret}');
+    final dio = Dio(
+      BaseOptions(
+        connectTimeout: const Duration(seconds: 30), // 30 sec
+        headers: {'Authorization': 'Basic $encodedClient'},
+      ),
+    );
+    final codeAuthen = await storage.read(key: KeyConfig.codeAuthen);
     final response = await dio.post(
       UrlConfig.acountTokenUrl,
       data: {
-        'grant_type': 'client_credentials',
-        'client_id': UrlConfig.clientId,
-        'client_secret': UrlConfig.clientSecret,
+        'grant_type': 'authorization_code',
+        'code': codeAuthen,
+        'redirect_uri': UrlConfig.redirectUrl,
       },
       options: Options(contentType: Headers.formUrlEncodedContentType),
     );
     if (response.statusCode != null && response.statusCode == 200) {
       final tokenModel = AccountTokenModel.fromJson(response.data);
       await storage.write(
-          key: 'token',
+          key: KeyConfig.token,
           value: '${tokenModel.tokenType} ${tokenModel.accessToken}');
-      return tokenModel;
-    } else {
-      return null;
     }
   }
 
-  Future<List<FeaturedPlaylistModel>> fetchFeaturedPlaylists() async {
+  Future fetchFeaturedPlaylists() async {
     featuredPlaylist.clear();
-    final token = await storage.read(key: 'token');
+    final token = await storage.read(key: KeyConfig.token);
     final dio = Dio(
       BaseOptions(
-        connectTimeout: const Duration(seconds: 30), // 60 sec
+        connectTimeout: const Duration(seconds: 30), // 30 sec
         headers: {'Authorization': token},
       ),
     );
@@ -63,9 +72,6 @@ class FeaturedPlaylistController extends GetxController {
       final responseList = response.data['playlists']['items'] as List;
       featuredPlaylist.addAll(
           responseList.map((e) => FeaturedPlaylistModel.fromJson(e)).toList());
-      return featuredPlaylist;
-    } else {
-      return [];
     }
   }
 }
