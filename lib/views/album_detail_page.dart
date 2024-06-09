@@ -32,9 +32,12 @@ class AlbumDetailPage extends StatelessWidget {
               children: [
                 imageAndButton(),
                 Obx(() => albumDetailController.isLoading.value
-                    ? const Center(
-                        child: CircularProgressIndicator(
-                          color: Colors.white,
+                    ? const Padding(
+                        padding: EdgeInsets.all(SizeConfig.fontJumboSize),
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
                         ),
                       )
                     : ListView.builder(

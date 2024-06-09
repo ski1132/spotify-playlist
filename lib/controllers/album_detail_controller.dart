@@ -1,9 +1,9 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:spotify_playlist/api/get_api.dart';
 import 'package:spotify_playlist/models/album_search_model.dart';
 import 'package:spotify_playlist/utils/key_config.dart';
-import 'package:spotify_playlist/utils/url_config.dart';
+import 'package:spotify_playlist/api/url_config.dart';
 
 class AlbumDetailController extends GetxController {
   final storage = const FlutterSecureStorage();
@@ -13,18 +13,12 @@ class AlbumDetailController extends GetxController {
   Future fetchAlbumDetail(AlbumSearchModel albumSearchModel) async {
     isLoading(true);
     final token = await storage.read(key: KeyConfig.token);
-    final dio = Dio(
-      BaseOptions(
-        connectTimeout: const Duration(seconds: 30), // 60 sec
-        headers: {'Authorization': token},
-      ),
-    );
     final data = {
       'ids': albumSearchModel.id,
       'market': 'TH',
     };
-    final response =
-        await dio.get(UrlConfig.albumDetailUrl, queryParameters: data);
+    final response = await GetApi.call(UrlConfig.albumDetailUrl,
+        headers: {'Authorization': token}, param: data);
     isLoading(false);
     if (response.statusCode != null && response.statusCode == 200) {
       final List responseList = response.data['albums'];

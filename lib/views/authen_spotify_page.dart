@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:spotify_playlist/utils/key_config.dart';
-import 'package:spotify_playlist/utils/url_config.dart';
+import 'package:spotify_playlist/api/url_config.dart';
 import 'package:spotify_playlist/views/main_navigator_page.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
