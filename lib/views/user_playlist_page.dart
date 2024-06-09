@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:get/instance_manager.dart';
 import 'package:spotify_playlist/controllers/main_navigator_controller.dart';
 import 'package:spotify_playlist/controllers/user_playlist_controller.dart';
 import 'package:spotify_playlist/models/playlist_user_model.dart';
@@ -41,7 +39,8 @@ class UserPlaylistPage extends StatelessWidget {
             onTap: () {
               final MainNavigatorController mainNavigatorController =
                   Get.find();
-              mainNavigatorController.changePage(PageName.featured);
+              mainNavigatorController.changePage(
+                  PageName.featured, PageName.userPlaylist);
             },
             child: const Padding(
               padding: EdgeInsets.all(8.0),
@@ -61,18 +60,6 @@ class UserPlaylistPage extends StatelessWidget {
           ),
           const SizedBox(
             width: 8,
-          ),
-          GestureDetector(
-            onTap: () {
-              final MainNavigatorController mainNavigatorController =
-                  Get.find();
-              mainNavigatorController.changePage(PageName.albumSearch);
-            },
-            child: const Icon(
-              Icons.search,
-              color: Colors.white,
-              size: SizeConfig.fontLargeSize,
-            ),
           ),
           const SizedBox(
             width: 8,
@@ -95,9 +82,10 @@ class UserPlaylistPage extends StatelessWidget {
   Widget itemPlaylist(PlaylistUserModel playlistUserModel) {
     return GestureDetector(
       onTap: () {
-        // final MainNavigatorController mainNavigatorController = Get.find();
-        // mainNavigatorController
-        //     .changePage(PageName.detail, valueToOtherPage: [albumSearchModel]);
+        final MainNavigatorController mainNavigatorController = Get.find();
+        mainNavigatorController.changePage(
+            PageName.userPlaylistDetail, PageName.userPlaylist,
+            valueToOtherPage: [playlistUserModel]);
       },
       child: Container(
         padding: const EdgeInsets.all(SizeConfig.fontNormalSize),
@@ -163,8 +151,9 @@ class UserPlaylistPage extends StatelessWidget {
             onSelected: (int item) {
               final MainNavigatorController mainNavigatorController =
                   Get.find();
-              mainNavigatorController.changePage(PageName.trackSearch,
-                  valueToOtherPage: [playlistUserModel, PageName.userPlaylist]);
+              mainNavigatorController.changePage(
+                  PageName.trackSearch, PageName.userPlaylist,
+                  valueToOtherPage: [playlistUserModel]);
             },
             itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
               const PopupMenuItem<int>(

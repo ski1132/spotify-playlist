@@ -66,7 +66,8 @@ class FeaturedPlaylistPage extends StatelessWidget {
             onTap: () {
               final MainNavigatorController mainNavigatorController =
                   Get.find();
-              mainNavigatorController.changePage(PageName.albumSearch);
+              mainNavigatorController.changePage(
+                  PageName.albumSearch, PageName.featured);
             },
             child: const Icon(
               Icons.search,
@@ -81,7 +82,8 @@ class FeaturedPlaylistPage extends StatelessWidget {
             onTap: () {
               final MainNavigatorController mainNavigatorController =
                   Get.find();
-              mainNavigatorController.changePage(PageName.userPlaylist);
+              mainNavigatorController.changePage(
+                  PageName.userPlaylist, PageName.featured);
             },
             child: CircleAvatar(
               backgroundColor: ColorConfig.orange,
@@ -111,8 +113,9 @@ class FeaturedPlaylistPage extends StatelessWidget {
           releaseDate: '',
           tracks: null,
         ); // แปลงค่าเป็น model ของหน้า Album Detail
-        mainNavigatorController.changePage(PageName.detail,
-            valueToOtherPage: [albumDetailModel, PageName.featured]);
+        mainNavigatorController.changePage(
+            PageName.albumDetail, PageName.featured,
+            valueToOtherPage: [albumDetailModel]);
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

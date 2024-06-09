@@ -1,1 +1,8 @@
-enum PageName { featured, albumSearch, detail, userPlaylist, trackSearch }
+enum PageName {
+  featured,
+  albumSearch,
+  albumDetail,
+  userPlaylist,
+  trackSearch,
+  userPlaylistDetail
+}

@@ -5,6 +5,7 @@ import 'package:spotify_playlist/utils/page_name_enum.dart';
 
 class MainNavigatorController extends GetxController {
   Rx<PageName> currentPage = PageName.featured.obs;
+  Rx<PageName> previousePage = PageName.featured.obs;
   List<dynamic> valueTranfer = [];
   RxInt indexBottomNavigator = 0.obs;
 
@@ -31,9 +32,14 @@ class MainNavigatorController extends GetxController {
         label: 'Library')
   ];
 
-  changePage(PageName pageName, {List<dynamic>? valueToOtherPage}) {
-    currentPage(pageName);
+  changePage(
+    PageName nextPageName,
+    PageName currentPageName, {
+    List<dynamic>? valueToOtherPage,
+  }) {
+    currentPage(nextPageName);
     valueTranfer.clear();
     valueTranfer.addAll(valueToOtherPage ?? []);
+    previousePage(currentPageName);
   }
 }

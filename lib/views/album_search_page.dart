@@ -39,7 +39,10 @@ class AlbumSearchPage extends StatelessWidget {
             onTap: () {
               final MainNavigatorController mainNavigatorController =
                   Get.find();
-              mainNavigatorController.changePage(PageName.featured);
+              mainNavigatorController.changePage(
+                PageName.featured,
+                PageName.albumSearch,
+              );
             },
             child: const Padding(
               padding: EdgeInsets.all(8.0),
@@ -98,8 +101,9 @@ class AlbumSearchPage extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         final MainNavigatorController mainNavigatorController = Get.find();
-        mainNavigatorController.changePage(PageName.detail,
-            valueToOtherPage: [albumSearchModel, PageName.albumSearch]);
+        mainNavigatorController.changePage(
+            PageName.albumDetail, PageName.albumSearch,
+            valueToOtherPage: [albumSearchModel]);
       },
       child: Container(
         padding: const EdgeInsets.all(SizeConfig.fontNormalSize),

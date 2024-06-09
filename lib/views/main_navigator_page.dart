@@ -8,6 +8,7 @@ import 'package:spotify_playlist/views/album_detail_page.dart';
 import 'package:spotify_playlist/views/album_search_page.dart';
 import 'package:spotify_playlist/views/featured_playlist_page.dart';
 import 'package:spotify_playlist/views/track_search_page.dart';
+import 'package:spotify_playlist/views/user_playlist_detail_page.dart';
 import 'package:spotify_playlist/views/user_playlist_page.dart';
 
 class MainNavigatorPage extends StatelessWidget {
@@ -25,17 +26,16 @@ class MainNavigatorPage extends StatelessWidget {
       body: Obx(() => switch (mainNavigatorController.currentPage.value) {
             PageName.featured => const FeaturedPlaylistPage(),
             PageName.albumSearch => const AlbumSearchPage(),
-            PageName.detail => AlbumDetailPage(
+            PageName.albumDetail => AlbumDetailPage(
                 albumSearchModel: mainNavigatorController.valueTranfer.first,
-                previousePage:
-                    mainNavigatorController.valueTranfer.elementAt(1),
-              ),
+                previousePage: mainNavigatorController.previousePage.value),
             PageName.userPlaylist => const UserPlaylistPage(),
             PageName.trackSearch => TrackSearchPage(
                 playlistUserModel: mainNavigatorController.valueTranfer.first,
-                previousePage:
-                    mainNavigatorController.valueTranfer.elementAt(1),
-              ),
+                previousePage: mainNavigatorController.previousePage.value),
+            PageName.userPlaylistDetail => UserPlaylistDetailPage(
+                playlistUserModel: mainNavigatorController.valueTranfer.first,
+                previousePage: mainNavigatorController.previousePage.value),
           }),
       bottomNavigationBar: Theme(
         data: ThemeData(
@@ -52,10 +52,12 @@ class MainNavigatorPage extends StatelessWidget {
             currentIndex: mainNavigatorController.indexBottomNavigator.value,
             onTap: (value) {
               if (value == 3) {
-                mainNavigatorController.changePage(PageName.userPlaylist);
+                mainNavigatorController.changePage(
+                    PageName.userPlaylist, PageName.userPlaylist);
                 mainNavigatorController.indexBottomNavigator(3);
               } else {
-                mainNavigatorController.changePage(PageName.featured);
+                mainNavigatorController.changePage(
+                    PageName.featured, PageName.featured);
                 mainNavigatorController.indexBottomNavigator(0);
               }
             },

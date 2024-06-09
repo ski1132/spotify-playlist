@@ -14,7 +14,7 @@ class TrackSearchController extends GetxController {
   RxList<TrackSearchModel> trackSearchList = <TrackSearchModel>[].obs;
   RxBool enableClearSearch = false.obs;
 
-  Future fetchSearchAlbum() async {
+  Future fetchSearchTrack() async {
     EasyLoading.show();
     trackSearchList.clear();
     final token = await storage.read(key: KeyConfig.token);

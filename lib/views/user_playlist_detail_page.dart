@@ -1,39 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get/get_utils/src/extensions/export.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/instance_manager.dart';
-import 'package:spotify_playlist/controllers/album_detail_controller.dart';
 import 'package:spotify_playlist/controllers/main_navigator_controller.dart';
-import 'package:spotify_playlist/models/album_detail_model.dart';
-import 'package:spotify_playlist/models/album_search_model.dart';
+import 'package:spotify_playlist/controllers/user_playlist_detail_controller.dart';
+import 'package:spotify_playlist/models/playlist_user_model.dart';
+import 'package:spotify_playlist/models/track_search_model.dart';
 import 'package:spotify_playlist/utils/color_config.dart';
 import 'package:spotify_playlist/utils/page_name_enum.dart';
 import 'package:spotify_playlist/utils/size_config.dart';
 import 'package:spotify_playlist/utils/text_style_config.dart';
 
-class AlbumDetailPage extends StatelessWidget {
-  final AlbumSearchModel albumSearchModel;
+class UserPlaylistDetailPage extends StatelessWidget {
+  final PlaylistUserModel playlistUserModel;
   final PageName previousePage;
-  const AlbumDetailPage({
-    super.key,
-    required this.albumSearchModel,
-    required this.previousePage,
-  });
+  const UserPlaylistDetailPage(
+      {super.key,
+      required this.playlistUserModel,
+      required this.previousePage});
 
   @override
   Widget build(BuildContext context) {
-    AlbumDetailController albumDetailController =
-        Get.put(AlbumDetailController());
-    albumDetailController.fetchAlbumDetail(albumSearchModel);
+    UserPlaylistDetailController userPlaylistDetailController =
+        Get.put(UserPlaylistDetailController());
+    userPlaylistDetailController.fetchTrackList(playlistUserModel.id);
     return Column(
       children: [
-        appBar(albumDetailController),
+        appBar(userPlaylistDetailController),
         Expanded(
           child: SingleChildScrollView(
             child: Column(
               children: [
                 imageAndButton(),
-                Obx(() => albumDetailController.isLoading.value
+                Obx(() => userPlaylistDetailController.isLoading.value
                     ? const Padding(
                         padding: EdgeInsets.all(SizeConfig.fontJumboSize),
                         child: Center(
@@ -45,13 +43,12 @@ class AlbumDetailPage extends StatelessWidget {
                     : ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: albumDetailController
-                                .albumList.value?.tracks?.items.length ??
-                            0,
+                        itemCount:
+                            userPlaylistDetailController.trackList.length,
                         itemBuilder: (context, index) => itemSong(
                             index,
-                            albumDetailController
-                                .albumList.value!.tracks!.items[index]),
+                            userPlaylistDetailController.trackList
+                                .elementAt(index)),
                       )),
               ],
             ),
@@ -61,7 +58,7 @@ class AlbumDetailPage extends StatelessWidget {
     );
   }
 
-  Widget appBar(AlbumDetailController albumDetailController) {
+  Widget appBar(UserPlaylistDetailController userPlaylistDetailController) {
     return Padding(
       padding: const EdgeInsets.all(SizeConfig.fontNormalSize),
       child: Row(
@@ -71,7 +68,7 @@ class AlbumDetailPage extends StatelessWidget {
               final MainNavigatorController mainNavigatorController =
                   Get.find();
               mainNavigatorController.changePage(
-                  PageName.albumSearch, PageName.albumDetail);
+                  previousePage, PageName.userPlaylistDetail);
             },
             child: const Padding(
               padding: EdgeInsets.all(8.0),
@@ -82,58 +79,20 @@ class AlbumDetailPage extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            width: 8,
-          ),
-          Expanded(
-              child: Column(
-            children: [
-              albumSearchModel.artists.isEmpty
-                  ? const SizedBox()
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.network(
-                          albumSearchModel.imagesList.first.url,
-                          width: SizeConfig.imageTinySize,
-                          height: SizeConfig.imageTinySize,
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Text(
-                          albumSearchModel.artists.first.name,
-                          style: TextStyleConfig.smallGrayStyle,
-                        )
-                      ],
-                    ),
-              albumSearchModel.releaseDate.length < 5
-                  ? const SizedBox()
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          albumSearchModel.albumType.capitalizeFirst ??
-                              albumSearchModel.albumType,
-                          style: TextStyleConfig.smallGrayStyle,
-                        ),
-                        const Text(' • ',
-                            style: TextStyleConfig.normalGrayStyle),
-                        Text(
-                          albumSearchModel.releaseDate.substring(0, 4),
-                          style: TextStyleConfig.smallGrayStyle,
-                        )
-                      ],
-                    ),
-            ],
-          )),
-          const SizedBox(
-            width: 8,
-          ),
-          const Icon(
-            Icons.search,
-            color: Colors.white,
-            size: SizeConfig.fontLargeSize,
+          const Spacer(),
+          GestureDetector(
+            onTap: () {
+              final MainNavigatorController mainNavigatorController =
+                  Get.find();
+              mainNavigatorController.changePage(
+                  PageName.trackSearch, PageName.userPlaylistDetail,
+                  valueToOtherPage: [playlistUserModel]);
+            },
+            child: const Icon(
+              Icons.search,
+              color: Colors.white,
+              size: SizeConfig.fontLargeSize,
+            ),
           ),
         ],
       ),
@@ -145,16 +104,26 @@ class AlbumDetailPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 40.0),
       child: Column(
         children: [
-          Image.network(
-            albumSearchModel.imagesList.first.url,
-            width: SizeConfig.halfWidthScreenSize,
-            height: SizeConfig.halfWidthScreenSize,
-          ),
+          playlistUserModel.images == null
+              ? Container(
+                  color: ColorConfig.darkThemeAppColor,
+                  width: SizeConfig.halfWidthScreenSize,
+                  height: SizeConfig.halfWidthScreenSize,
+                  child: const Icon(
+                    Icons.music_note,
+                    size: SizeConfig.fontJumboSize,
+                  ),
+                )
+              : Image.network(
+                  playlistUserModel.images!.first.url,
+                  width: SizeConfig.halfWidthScreenSize,
+                  height: SizeConfig.halfWidthScreenSize,
+                ),
           const SizedBox(
             height: 8,
           ),
           Text(
-            albumSearchModel.name,
+            playlistUserModel.name,
             style: TextStyleConfig.largeWhiteStyle,
           ),
           const SizedBox(
@@ -194,8 +163,8 @@ class AlbumDetailPage extends StatelessWidget {
     );
   }
 
-  Widget itemSong(int index, AlbumDetailModel albumDetailModel) {
-    final minute = albumDetailModel.durationMs / 1000 / 60;
+  Widget itemSong(int index, TrackSearchModel trackSearchModel) {
+    final minute = trackSearchModel.durationMs / 1000 / 60;
     return Padding(
       padding: const EdgeInsets.symmetric(
           vertical: 8.0, horizontal: SizeConfig.fontNormalSize),
@@ -213,13 +182,13 @@ class AlbumDetailPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  albumDetailModel.name,
+                  trackSearchModel.name,
                   style: TextStyleConfig.normalWhiteStyle,
                 ),
                 Row(
                   children: [
                     Text(
-                      albumDetailModel.artists.first.name,
+                      trackSearchModel.artists.first.name,
                       style: TextStyleConfig.normalGrayStyle,
                     ),
                     const Text(' • ', style: TextStyleConfig.normalGrayStyle),
