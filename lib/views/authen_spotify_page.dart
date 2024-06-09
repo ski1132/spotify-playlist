@@ -21,6 +21,7 @@ class AuthenSpotifyPage extends StatelessWidget {
                 onNavigationRequest: (NavigationRequest request) async {
                   if (request.url.contains('${UrlConfig.redirectUrl}/?code=')) {
                     final code = request.url.split('?code=').last;
+                    debugPrint('code = $code');
                     const FlutterSecureStorage()
                         .write(
                             key: KeyConfig.codeAuthen,
@@ -33,7 +34,7 @@ class AuthenSpotifyPage extends StatelessWidget {
               ),
             )
             ..loadRequest(Uri.parse(
-                'https://accounts.spotify.com/authorize?response_type=code&client_id=95758c9caee44f1aa5e5dd5ec6b86f54&redirect_uri=spotify-playlist-login://callback'))),
+                'https://accounts.spotify.com/authorize?response_type=code&client_id=95758c9caee44f1aa5e5dd5ec6b86f54&redirect_uri=spotify-playlist-login://callback&show_dialog=true&scope=playlist-read-private playlist-modify-private'))),
     );
   }
 }

@@ -47,6 +47,7 @@ class FeaturedPlaylistController extends GetxController {
         'grant_type': 'authorization_code',
         'code': codeAuthen,
         'redirect_uri': UrlConfig.redirectUrl,
+        'scope': 'playlist-read-private playlist-modify-private'
       },
       options: Options(contentType: Headers.formUrlEncodedContentType),
     );

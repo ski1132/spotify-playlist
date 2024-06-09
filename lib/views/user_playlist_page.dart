@@ -9,6 +9,8 @@ import 'package:spotify_playlist/utils/color_config.dart';
 import 'package:spotify_playlist/utils/page_name_enum.dart';
 import 'package:spotify_playlist/utils/size_config.dart';
 import 'package:spotify_playlist/utils/text_style_config.dart';
+import 'package:spotify_playlist/widgets/button_config.dart';
+import 'package:spotify_playlist/widgets/text_form_field_app.dart';
 
 class UserPlaylistPage extends StatelessWidget {
   const UserPlaylistPage({super.key});
@@ -24,8 +26,8 @@ class UserPlaylistPage extends StatelessWidget {
         Expanded(
             child: Obx(() => ListView.builder(
                 itemCount: userPlaylistController.playList.length,
-                itemBuilder: (context, index) =>
-                    itemPlaylist(userPlaylistController.playList[index]))))
+                itemBuilder: (context, index) => itemPlaylist(
+                    userPlaylistController.playList.elementAt(index)))))
       ],
     );
   }
@@ -76,7 +78,9 @@ class UserPlaylistPage extends StatelessWidget {
             width: 8,
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              dialogCreatePlaylist(userPlaylistController);
+            },
             child: const Icon(
               Icons.add,
               size: SizeConfig.fontJumboSize,
@@ -166,5 +170,70 @@ class UserPlaylistPage extends StatelessWidget {
         ]),
       ),
     );
+  }
+
+  dialogCreatePlaylist(UserPlaylistController userPlaylistController) {
+    final TextEditingController nameController = TextEditingController();
+    final TextEditingController descriptionController = TextEditingController();
+    Get.dialog(Dialog(
+      backgroundColor: ColorConfig.darkThemeAppColor,
+      insetPadding: const EdgeInsets.all(20),
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: ColorConfig.darkThemeAppColor,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Center(
+              child: Text(
+                'Create playlist',
+                style: TextStyleConfig.largeWhiteStyle,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const SizedBox(
+              height: SizeConfig.fontLargeSize,
+            ),
+            const Text(
+              'Name',
+              style: TextStyleConfig.normalWhiteStyle,
+            ),
+            TextFormFieldApp(controller: nameController),
+            const SizedBox(
+              height: SizeConfig.fontNormalSize,
+            ),
+            const Text(
+              'Description',
+              style: TextStyleConfig.normalWhiteStyle,
+            ),
+            TextFormFieldApp(controller: descriptionController),
+            const SizedBox(
+              height: SizeConfig.fontNormalSize,
+            ),
+            Row(
+              children: [
+                const Spacer(),
+                ButtonConfig(
+                  onTap: () async {
+                    await userPlaylistController.createUserPlaylist(
+                        nameController.text, descriptionController.text);
+                    Get.back();
+                  },
+                  backgroundColor: ColorConfig.darkGreyThemeAppColor,
+                  child: const Text(
+                    'Create',
+                    style: TextStyleConfig.normalWhiteStyle,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ));
   }
 }
