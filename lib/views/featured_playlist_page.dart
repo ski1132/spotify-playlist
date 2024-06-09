@@ -66,7 +66,7 @@ class FeaturedPlaylistPage extends StatelessWidget {
             onTap: () {
               final MainNavigatorController mainNavigatorController =
                   Get.find();
-              mainNavigatorController.changePage(PageName.search);
+              mainNavigatorController.changePage(PageName.albumSearch);
             },
             child: const Icon(
               Icons.search,

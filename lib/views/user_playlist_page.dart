@@ -66,7 +66,7 @@ class UserPlaylistPage extends StatelessWidget {
             onTap: () {
               final MainNavigatorController mainNavigatorController =
                   Get.find();
-              mainNavigatorController.changePage(PageName.search);
+              mainNavigatorController.changePage(PageName.albumSearch);
             },
             child: const Icon(
               Icons.search,
@@ -159,14 +159,36 @@ class UserPlaylistPage extends StatelessWidget {
               ],
             ),
           ),
-          GestureDetector(
-            onTap: () {},
+          PopupMenuButton<int>(
+            onSelected: (int item) {
+              if (item == 0) {
+                final MainNavigatorController mainNavigatorController =
+                    Get.find();
+                mainNavigatorController.changePage(PageName.trackSearch,
+                    valueToOtherPage: [
+                      playlistUserModel,
+                      PageName.userPlaylist
+                    ]);
+              } else {
+                // Get.dialog(Cust)
+              }
+            },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
+              const PopupMenuItem<int>(
+                value: 0,
+                child: Text('Add Song'),
+              ),
+              const PopupMenuItem<int>(
+                value: 1,
+                child: Text('Remove Playlist'),
+              ),
+            ],
             child: const Icon(
               Icons.more_vert,
+              size: SizeConfig.fontJumboSize,
               color: ColorConfig.white,
-              size: SizeConfig.fontNormalSize,
             ),
-          )
+          ),
         ]),
       ),
     );
