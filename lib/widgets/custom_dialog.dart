@@ -40,12 +40,21 @@ class CustomDialog extends StatelessWidget {
             title != null
                 ? Text(
                     title!,
-                    style: TextStyleConfig.normalWhiteStyle,
+                    style: TextStyleConfig.largeWhiteStyle,
                     textAlign: TextAlign.center,
                   )
                 : const SizedBox(),
             SizedBox(
               height: title != null ? 20 : 0,
+            ),
+            if (content != null)
+              Text(
+                content ?? '',
+                style: TextStyleConfig.normalWhiteStyle,
+                textAlign: TextAlign.center,
+              ),
+            SizedBox(
+              height: content != null ? 20 : 0,
             ),
             Row(
               mainAxisSize: MainAxisSize.min,

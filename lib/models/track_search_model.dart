@@ -18,6 +18,7 @@ class TrackSearchModel with _$TrackSearchModel {
     @JsonKey(name: 'name') required String name,
     @JsonKey(name: 'artists') required List<ArtistSearchModel> artists,
     @JsonKey(name: 'duration_ms') required int durationMs,
+    @JsonKey(name: 'uri') required String uri,
   }) = _TrackSearchModel;
 
   factory TrackSearchModel.fromJson(Map<String, Object?> json) =>

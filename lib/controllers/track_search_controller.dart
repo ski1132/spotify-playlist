@@ -3,6 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:spotify_playlist/api/get_api.dart';
+import 'package:spotify_playlist/api/post_api.dart';
 import 'package:spotify_playlist/api/url_config.dart';
 import 'package:spotify_playlist/models/track_search_model.dart';
 import 'package:spotify_playlist/utils/key_config.dart';
@@ -33,5 +34,22 @@ class TrackSearchController extends GetxController {
           responseList.map((e) => TrackSearchModel.fromJson(e)).toList());
       trackSearchList.refresh();
     }
+  }
+
+  Future addTrackToPlaylist(String playlistId, String trackUri) async {
+    EasyLoading.show();
+    final token = await storage.read(key: KeyConfig.token);
+    final data = {
+      'uris': [trackUri],
+      'position': 0,
+    };
+    final response = await PostApi.call(
+      "${UrlConfig.addTrackToPlaylistUrl}$playlistId/tracks",
+      data: data,
+      headers: {'Authorization': token, 'Content-Type': 'application/json'},
+    );
+    if (response.statusCode != null &&
+        (response.statusCode == 200 || response.statusCode == 201)) {}
+    EasyLoading.dismiss();
   }
 }

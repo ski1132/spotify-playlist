@@ -12,4 +12,5 @@ class UrlConfig {
   static const userPlaylistUrl = 'https://api.spotify.com/v1/me/playlists';
   static const createPlaylistUrl =
       'https://api.spotify.com/v1/users/$userId/playlists';
+  static const addTrackToPlaylistUrl = 'https://api.spotify.com/v1/playlists/';
 }

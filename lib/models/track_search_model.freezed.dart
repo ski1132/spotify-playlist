@@ -32,6 +32,8 @@ mixin _$TrackSearchModel {
   List<ArtistSearchModel> get artists => throw _privateConstructorUsedError;
   @JsonKey(name: 'duration_ms')
   int get durationMs => throw _privateConstructorUsedError;
+  @JsonKey(name: 'uri')
+  String get uri => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +53,8 @@ abstract class $TrackSearchModelCopyWith<$Res> {
       @JsonKey(name: 'album') AlbumSearchModel album,
       @JsonKey(name: 'name') String name,
       @JsonKey(name: 'artists') List<ArtistSearchModel> artists,
-      @JsonKey(name: 'duration_ms') int durationMs});
+      @JsonKey(name: 'duration_ms') int durationMs,
+      @JsonKey(name: 'uri') String uri});
 
   $AlbumSearchModelCopyWith<$Res> get album;
 }
@@ -75,6 +78,7 @@ class _$TrackSearchModelCopyWithImpl<$Res, $Val extends TrackSearchModel>
     Object? name = null,
     Object? artists = null,
     Object? durationMs = null,
+    Object? uri = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -101,6 +105,10 @@ class _$TrackSearchModelCopyWithImpl<$Res, $Val extends TrackSearchModel>
           ? _value.durationMs
           : durationMs // ignore: cast_nullable_to_non_nullable
               as int,
+      uri: null == uri
+          ? _value.uri
+          : uri // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 
@@ -127,7 +135,8 @@ abstract class _$$TrackSearchModelImplCopyWith<$Res>
       @JsonKey(name: 'album') AlbumSearchModel album,
       @JsonKey(name: 'name') String name,
       @JsonKey(name: 'artists') List<ArtistSearchModel> artists,
-      @JsonKey(name: 'duration_ms') int durationMs});
+      @JsonKey(name: 'duration_ms') int durationMs,
+      @JsonKey(name: 'uri') String uri});
 
   @override
   $AlbumSearchModelCopyWith<$Res> get album;
@@ -150,6 +159,7 @@ class __$$TrackSearchModelImplCopyWithImpl<$Res>
     Object? name = null,
     Object? artists = null,
     Object? durationMs = null,
+    Object? uri = null,
   }) {
     return _then(_$TrackSearchModelImpl(
       id: null == id
@@ -176,6 +186,10 @@ class __$$TrackSearchModelImplCopyWithImpl<$Res>
           ? _value.durationMs
           : durationMs // ignore: cast_nullable_to_non_nullable
               as int,
+      uri: null == uri
+          ? _value.uri
+          : uri // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -189,7 +203,8 @@ class _$TrackSearchModelImpl implements _TrackSearchModel {
       @JsonKey(name: 'album') required this.album,
       @JsonKey(name: 'name') required this.name,
       @JsonKey(name: 'artists') required final List<ArtistSearchModel> artists,
-      @JsonKey(name: 'duration_ms') required this.durationMs})
+      @JsonKey(name: 'duration_ms') required this.durationMs,
+      @JsonKey(name: 'uri') required this.uri})
       : _artists = artists;
 
   factory _$TrackSearchModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -219,10 +234,13 @@ class _$TrackSearchModelImpl implements _TrackSearchModel {
   @override
   @JsonKey(name: 'duration_ms')
   final int durationMs;
+  @override
+  @JsonKey(name: 'uri')
+  final String uri;
 
   @override
   String toString() {
-    return 'TrackSearchModel(id: $id, type: $type, album: $album, name: $name, artists: $artists, durationMs: $durationMs)';
+    return 'TrackSearchModel(id: $id, type: $type, album: $album, name: $name, artists: $artists, durationMs: $durationMs, uri: $uri)';
   }
 
   @override
@@ -236,13 +254,14 @@ class _$TrackSearchModelImpl implements _TrackSearchModel {
             (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality().equals(other._artists, _artists) &&
             (identical(other.durationMs, durationMs) ||
-                other.durationMs == durationMs));
+                other.durationMs == durationMs) &&
+            (identical(other.uri, uri) || other.uri == uri));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, type, album, name,
-      const DeepCollectionEquality().hash(_artists), durationMs);
+      const DeepCollectionEquality().hash(_artists), durationMs, uri);
 
   @JsonKey(ignore: true)
   @override
@@ -266,8 +285,9 @@ abstract class _TrackSearchModel implements TrackSearchModel {
       @JsonKey(name: 'album') required final AlbumSearchModel album,
       @JsonKey(name: 'name') required final String name,
       @JsonKey(name: 'artists') required final List<ArtistSearchModel> artists,
-      @JsonKey(name: 'duration_ms')
-      required final int durationMs}) = _$TrackSearchModelImpl;
+      @JsonKey(name: 'duration_ms') required final int durationMs,
+      @JsonKey(name: 'uri')
+      required final String uri}) = _$TrackSearchModelImpl;
 
   factory _TrackSearchModel.fromJson(Map<String, dynamic> json) =
       _$TrackSearchModelImpl.fromJson;
@@ -290,6 +310,9 @@ abstract class _TrackSearchModel implements TrackSearchModel {
   @override
   @JsonKey(name: 'duration_ms')
   int get durationMs;
+  @override
+  @JsonKey(name: 'uri')
+  String get uri;
   @override
   @JsonKey(ignore: true)
   _$$TrackSearchModelImplCopyWith<_$TrackSearchModelImpl> get copyWith =>

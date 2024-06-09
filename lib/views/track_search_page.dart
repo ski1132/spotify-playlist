@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:get/instance_manager.dart';
@@ -10,6 +11,7 @@ import 'package:spotify_playlist/utils/color_config.dart';
 import 'package:spotify_playlist/utils/page_name_enum.dart';
 import 'package:spotify_playlist/utils/size_config.dart';
 import 'package:spotify_playlist/utils/text_style_config.dart';
+import 'package:spotify_playlist/widgets/custom_dialog.dart';
 import 'package:spotify_playlist/widgets/text_form_field_app.dart';
 
 class TrackSearchPage extends StatelessWidget {
@@ -30,8 +32,9 @@ class TrackSearchPage extends StatelessWidget {
         Expanded(
             child: Obx(() => ListView.builder(
                 itemCount: trackSearchController.trackSearchList.length,
-                itemBuilder: (context, index) =>
-                    itemAlbum(trackSearchController.trackSearchList[index]))))
+                itemBuilder: (context, index) => itemAlbum(
+                    trackSearchController.trackSearchList[index],
+                    trackSearchController))))
       ],
     );
   }
@@ -100,7 +103,8 @@ class TrackSearchPage extends StatelessWidget {
     );
   }
 
-  Widget itemAlbum(TrackSearchModel trackSearchModel) {
+  Widget itemAlbum(TrackSearchModel trackSearchModel,
+      TrackSearchController trackSearchController) {
     return GestureDetector(
       onTap: () {
         final MainNavigatorController mainNavigatorController = Get.find();
@@ -157,11 +161,23 @@ class TrackSearchPage extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Get.dialog(CustomDialog(
+                title: trackSearchModel.name,
+                content:
+                    'Confirm add ${trackSearchModel.name} to playlist ${playlistUserModel.name}',
+                showCancelButton: true,
+                onConfirm: () async {
+                  await trackSearchController.addTrackToPlaylist(
+                      playlistUserModel.id, trackSearchModel.uri);
+                  Get.back();
+                },
+              ));
+            },
             child: const Icon(
               Icons.add_circle_outline,
               color: ColorConfig.white,
-              size: SizeConfig.fontNormalSize,
+              size: SizeConfig.fontJumboSize,
             ),
           )
         ]),

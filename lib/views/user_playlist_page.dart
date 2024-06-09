@@ -161,26 +161,15 @@ class UserPlaylistPage extends StatelessWidget {
           ),
           PopupMenuButton<int>(
             onSelected: (int item) {
-              if (item == 0) {
-                final MainNavigatorController mainNavigatorController =
-                    Get.find();
-                mainNavigatorController.changePage(PageName.trackSearch,
-                    valueToOtherPage: [
-                      playlistUserModel,
-                      PageName.userPlaylist
-                    ]);
-              } else {
-                // Get.dialog(Cust)
-              }
+              final MainNavigatorController mainNavigatorController =
+                  Get.find();
+              mainNavigatorController.changePage(PageName.trackSearch,
+                  valueToOtherPage: [playlistUserModel, PageName.userPlaylist]);
             },
             itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
               const PopupMenuItem<int>(
                 value: 0,
                 child: Text('Add Song'),
-              ),
-              const PopupMenuItem<int>(
-                value: 1,
-                child: Text('Remove Playlist'),
               ),
             ],
             child: const Icon(

@@ -17,6 +17,7 @@ _$TrackSearchModelImpl _$$TrackSearchModelImplFromJson(
           .map((e) => ArtistSearchModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       durationMs: (json['duration_ms'] as num).toInt(),
+      uri: json['uri'] as String,
     );
 
 Map<String, dynamic> _$$TrackSearchModelImplToJson(
@@ -28,4 +29,5 @@ Map<String, dynamic> _$$TrackSearchModelImplToJson(
       'name': instance.name,
       'artists': instance.artists,
       'duration_ms': instance.durationMs,
+      'uri': instance.uri,
     };
