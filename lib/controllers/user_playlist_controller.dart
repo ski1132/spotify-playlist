@@ -76,6 +76,7 @@ class UserPlaylistController extends GetxController {
     );
     if (response.statusCode != null &&
         (response.statusCode == 200 || response.statusCode == 201)) {
+      resetValue();
       await fetchUserPlaylist();
     }
     EasyLoading.dismiss();
